@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="com.mycompany_CoWorking_war_UFFICIPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.coworking.entity.EUfficio</class>
+    <class>com.mycompany.coworking.entity.ELocatore</class>
+    <class>com.mycompany.coworking.entity.EProfilo</class>
+    <class>com.mycompany.coworking.entity.ERecensione</class>
+    <class>com.mycompany.coworking.entity.ESegnalazione</class>
+    <class>com.mycompany.coworking.entity.EIndirizzo</class>
+    <class>com.mycompany.coworking.entity.EPrenotazione</class>
+    <class>com.mycompany.coworking.entity.EPagamento</class>
+    <class>com.mycompany.coworking.entity.EFoto</class>
+    <class>com.mycompany.coworking.entity.EIntervalloDisponibilita</class>
+    <class>com.mycompany.coworking.entity.EServiziAggiuntivi</class>
+    <class>com.mycompany.coworking.entity.ERimborso</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>ALL</shared-cache-mode>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
