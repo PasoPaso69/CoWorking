@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Connessione al database MySQL -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/uffici3?serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- Dialetto MySQL aggiornato -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Creazione automatica delle tabelle -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Debug delle query -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        
+        <!-- Specifica esplicitamente il package da scannerizzare -->
+        <property name="hibernate.archive.autodetection">class</property>
+        
+        <!-- Registra le entità (alternativa al mapping nel XML) -->
+        <mapping class="com.mycompany.cowirking1.Model.entity.EFoto"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EIndirizzo"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EIntervallodisponibilita"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.ELocatore"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EPagamento"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EPrenotazione"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EProfilo"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.ERecensione"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.ERimborso"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.ESegnalazione"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EServiziAggiuntivi"/>
+        <mapping class="com.mycompany.cowirking1.Model.entity.EUfficio"/>
+
+    </session-factory>
+</hibernate-configuration>

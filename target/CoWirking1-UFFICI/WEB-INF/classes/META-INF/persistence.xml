@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="CoWirking1PU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entità da registrare -->
+        <class>com.mycompany.cowirking1.Model.entity.EFoto</class>
+        <class>com.mycompany.cowirking1.Model.entity.EIndirizzo</class>
+        <class>com.mycompany.cowirking1.Model.entity.EIntervalloDisponibilita</class>
+        <class>com.mycompany.cowirking1.Model.entity.ELocatore</class>
+        <class>com.mycompany.cowirking1.Model.entity.EPagamento</class>
+        <class>com.mycompany.cowirking1.Model.entity.EPrenotazione</class>
+        <class>com.mycompany.cowirking1.Model.entity.EProfilo</class>
+        <class>com.mycompany.cowirking1.Model.entity.ERecensione</class>
+        <class>com.mycompany.cowirking1.Model.entity.ERimborso</class>
+        <class>com.mycompany.cowirking1.Model.entity.ESegnalazione</class>
+        <class>com.mycompany.cowirking1.Model.entity.EServiziAggiuntivi</class>
+        <class>com.mycompany.cowirking1.Model.entity.EUfficio</class>
+
+        <properties>
+            <!-- Connessione DB -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/uffici3?serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- Dialetto Hibernate per MySQL 8+ -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!-- Aggiornamento automatico DB -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Debug SQL -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
