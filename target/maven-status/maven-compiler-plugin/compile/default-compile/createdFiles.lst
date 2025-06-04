@@ -1,10 +1,10 @@
 com\mycompany\coworking1\Model\entity\EPagamento.class
 com\mycompany\coworking1\Model\entity\EProfilo.class
 com\mycompany\coworking1\Model\entity\EPrenotazione.class
+com\mycompany\coworking1\Model\entity\main.class
 com\mycompany\coworking1\DAO\impl\ProfiloDaoImpl.class
-com\mycompany\coworking1\Model\entity\EIntervalloDisponibilita.class
 com\mycompany\coworking1\Model\entity\EFoto.class
-com\mycompany\coworking1\Model\entity\Main.class
+com\mycompany\coworking1\Model\entity\EIntervalliDisponibilita.class
 com\mycompany\coworking1\Service\impl\ProfiloServiceImpl.class
 com\mycompany\coworking1\Model\entity\ELocatore.class
 com\mycompany\coworking1\Model\entity\EServiziAggiuntivi.class

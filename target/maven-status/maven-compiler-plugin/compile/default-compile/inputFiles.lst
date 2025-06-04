@@ -1,9 +1,9 @@
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EPagamento.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\enums\StatoUfficioEnum.java
+C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EIntervalliDisponibilita.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EIndirizzo.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\enums\UserEnum.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\DAO\impl\ProfiloDaoImpl.java
-C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EIntervalloDisponibilita.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\DAO\ProfiloDao.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EPrenotazione.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\EProfilo.java
@@ -21,4 +21,4 @@ C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Controller\RegisterController.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\util\HibernateUtil.java
 C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\ERecensione.java
-C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\Main.java
+C:\Users\39327\Documents\NetBeansProjects\CoWirking1\src\main\java\com\mycompany\coworking1\Model\entity\main.java

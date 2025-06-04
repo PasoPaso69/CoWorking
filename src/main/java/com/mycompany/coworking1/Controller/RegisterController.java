@@ -65,14 +65,14 @@ public class RegisterController extends HttpServlet {
         String phone = req.getParameter("phone");
                 
         EProfilo newUser = new EProfilo();
-         String id = UUID.randomUUID().toString();
-        newUser.setId(id); 
+       //  String id = UUID.randomUUID().toString();
+        //newUser.(id); 
         newUser.setEmail(email);
         newUser.setPassword(password);
-        newUser.setNome(nome);
-        newUser.setCognome(cognome);
-        newUser.setDataNascita(data1);
-        newUser.setTelefono(phone);
+        newUser.setName(nome);
+        newUser.setSurname(cognome);
+        newUser.setDob(data1);
+        newUser.setPhone(phone);
        
         // imposta altri campi
 
