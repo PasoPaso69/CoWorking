@@ -5,6 +5,7 @@
 package com.mycompany.coworking1.Model.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 /**
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Profili_Locatori")
+@DiscriminatorValue("Locatore")
 public class ELocatore extends EProfilo {
 
 

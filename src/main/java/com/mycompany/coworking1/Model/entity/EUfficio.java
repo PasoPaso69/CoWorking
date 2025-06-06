@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.coworking1.Model.entity;
-import com.mycompany.coworking1.Model.entity.EFoto;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
-import com.mycompany.coworking1.Model.entity.EIntervalliDisponibilita;
 /**
  *
  * @author 39327

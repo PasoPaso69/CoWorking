@@ -12,7 +12,11 @@ import jakarta.persistence.*;
  */
 public class ProfiloDaoImpl implements ProfiloDao {
     
-     
+     private final EntityManager em;
+
+    public ProfiloDaoImpl(EntityManager em) {
+        this.em = em;
+    }
     
     @Override
     public EProfilo findbyUsername(String email) {

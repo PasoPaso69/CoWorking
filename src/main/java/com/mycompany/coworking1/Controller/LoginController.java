@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -23,37 +24,66 @@ import com.mycompany.coworking1.Service.ProfiloService;
 import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
 import com.mycompany.coworking1.DAO.impl.ProfiloDaoImpl;
 import com.mycompany.coworking1.Model.entity.EProfilo;
+import com.mycompany.coworking1.Model.entity.ELocatore;
+import com.mycompany.coworking1.util.EntityManagerUtil;
+import jakarta.persistence.EntityManager;
 /**
  *
  * @author 39327
  */
 @WebServlet("/login")
     
-public class LoginController extends HttpServlet {
+public class LoginController extends BaseController {
     private ProfiloService userService;
     private Configuration cfg;
 
     @Override
     public void init() throws ServletException {
-        this.userService = new ProfiloServiceImpl(new ProfiloDaoImpl());
-
+     
         cfg = new Configuration(Configuration.VERSION_2_3_31);
         cfg.setServletContextForTemplateLoading(getServletContext(), "/WEB-INF/templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
     
+      @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     
+    resp.setContentType("text/html;charset=UTF-8");
+    
+    Map<String, Object> data = new HashMap<>();
+    data.put("ctx", req.getContextPath()); 
+    
+    Template template = cfg.getTemplate("login/login.ftl");
+    try (Writer out = resp.getWriter()) {
+        template.process(data, out);
+    } catch (Exception e) {
+        throw new ServletException("Errore nel template", e);
+    }
+}
+    
      @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+         this.userService = new ProfiloServiceImpl(new ProfiloDaoImpl(em));
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
         EProfilo user= userService.login(email, password); // crea metodo login nel service
 
         if (user!= null) {
-            // salva in sessione, reindirizza alla pagina protetta
-            req.getSession().setAttribute("userEmail", email);
-            resp.sendRedirect(req.getContextPath() + "/home"); // es. home protetta
+           
+    HttpSession session = req.getSession();
+    session.setAttribute("user", user);
+    //session.setAttribute("userName", user.getName());
+
+    if (user instanceof ELocatore) {
+        session.setAttribute("userType", "locatore");
+        resp.sendRedirect(req.getContextPath() + "/home-locatore");
+    } else  {
+        session.setAttribute("userType", "utente");
+        resp.sendRedirect(req.getContextPath() + "/home-utente");
+    } // es. home protetta
         } else {
             Map<String, Object> data = new HashMap<>();
             data.put("ctx", req.getContextPath());
@@ -67,5 +97,5 @@ public class LoginController extends HttpServlet {
             }
         }
     }
+    }
     
-}

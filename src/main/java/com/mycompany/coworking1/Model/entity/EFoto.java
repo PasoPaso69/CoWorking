@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.coworking1.Model.entity;
-import com.mycompany.coworking1.Model.entity.EUfficio;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -12,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author 39327
  */
 import jakarta.persistence.*;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Foto")

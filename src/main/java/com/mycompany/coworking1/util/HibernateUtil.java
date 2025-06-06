@@ -5,6 +5,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import com.mycompany.coworking1.Model.entity.EIndirizzo;
 
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -18,7 +19,7 @@ public class HibernateUtil {
 
             // Crea MetadataSources e aggiungi le entità
             MetadataSources sources = new MetadataSources(registry);
-            sources.addAnnotatedClass(com.mycompany.coworking1.Model.entity.EIndirizzo.class);
+            sources.addAnnotatedClass(EIndirizzo.class);
 
             // Crea Metadata
             Metadata metadata = sources.getMetadataBuilder().build();

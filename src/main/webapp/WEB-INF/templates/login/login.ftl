@@ -82,9 +82,9 @@
                 <!-- Toggle tra Login/Registrazione -->
                 <div class="text-center mt-4">
                     <p id="toggle-text">
-                        Non hai un account?
-                        <a href="#" id="toggle-link">Registrati</a>
-                    </p>
+    <span id="toggle-message">Non hai un account?</span>
+    <a href="#" id="toggle-link">Registrati</a>
+</p>
                 </div>
             </div>
         </div>
@@ -97,37 +97,35 @@
 <!-- SCRIPT -->
 <script>
 
-    // Switch login <-> registrazione
-    document.addEventListener("DOMContentLoaded", () => {
-        const loginForm = document.getElementById("login-form");
-        const registerForm = document.getElementById("register-form");
-        const formTitle = document.getElementById("form-title");
-        let isLogin = true;
+   document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const formTitle = document.getElementById("form-title");
+    const toggleLink = document.getElementById("toggle-link");
+    const toggleMessage = document.getElementById("toggle-message");
 
-        const handleToggle = (e) => {
-            e.preventDefault();
+    let isLogin = true;
 
-            isLogin = !isLogin;
+    toggleLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        isLogin = !isLogin;
 
-            if (isLogin) {
-                loginForm.style.display = "block";
-                registerForm.style.display = "none";
-                formTitle.innerHTML = '<i class="fas fa-sign-in-alt"></i> Accedi';
-                toggleText.innerHTML = 'Non hai un account? <a href="#" id="toggle-link">Registrati</a>';
-            } else {
-                loginForm.style.display = "none";
-                registerForm.style.display = "block";
-                formTitle.innerHTML = '<i class="fas fa-user-plus"></i> Registrati';
-                toggleText.innerHTML = 'Hai già un account? <a href="#" id="toggle-link">Accedi</a>';
-            }
-
-            // Riattacca il listener al nuovo link appena creato
-            document.getElementById("toggle-link").addEventListener("click", handleToggle);
-        };
-
-        // Attiva primo listener
-        document.getElementById("toggle-link").addEventListener("click", handleToggle);
+        if (isLogin) {
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+            formTitle.innerHTML = '<i class="fas fa-sign-in-alt"></i> Accedi';
+            toggleMessage.textContent = "Non hai un account?";
+            toggleLink.textContent = "Registrati";
+        } else {
+            loginForm.style.display = "none";
+            registerForm.style.display = "block";
+            formTitle.innerHTML = '<i class="fas fa-user-plus"></i> Registrati';
+            toggleMessage.textContent = "Hai già un account?";
+            toggleLink.textContent = "Accedi";
+        }
     });
+});
+
 </script>
 <script>
     // Mostra/nascondi campo Partita IVA
