@@ -42,7 +42,7 @@ public class RegisterController extends BaseController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-           EntityManager em = EntityManagerUtil.getEntityManager();
+           
         this.userService = new ProfiloServiceImpl(new ProfiloDaoImpl(em));
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -56,7 +56,7 @@ public class RegisterController extends BaseController {
         
         
         EProfilo profilo;
-            if(PIva == null && PIva.trim().isEmpty()){     
+            if(PIva == null || PIva.trim().isEmpty()){     
         EProfilo newUser = new EProfilo();
        //  String id = UUID.randomUUID().toString();
         //newUser.(id); 
@@ -84,12 +84,21 @@ public class RegisterController extends BaseController {
 
         
         if (registered) {
-           // dopo registrazione vai al login
-        } else {
             Map<String, Object> data = new HashMap<>();
              data.put("ctx", req.getContextPath()); 
+            Template template = cfg.getTemplate("login/login.ftl");
+            resp.setContentType("text/html;charset=UTF-8");
+            try (Writer out = resp.getWriter()) {
+                template.process(data, out);
+            } catch (Exception e) {
+                throw new ServletException("Errore nel template", e);
+            }
+           // dopo registrazione vai al login
+        } else {
+         Map<String, Object> data = new HashMap<>();
+             data.put("ctx", req.getContextPath()); 
             data.put("error", "Utente già registrato");
-            Template template = cfg.getTemplate("register.ftl");
+            Template template = cfg.getTemplate("login/login.ftl");
             resp.setContentType("text/html;charset=UTF-8");
             try (Writer out = resp.getWriter()) {
                 template.process(data, out);

@@ -62,7 +62,7 @@ public class SearchController extends BaseController {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = EntityManagerUtil.getEntityManager(); 
+    
         String query = request.getParameter("query");
     String dateStr = request.getParameter("date");
     String slot = request.getParameter("slot");

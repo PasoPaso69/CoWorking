@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dettagli Ufficio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/html/DettaglioOffice/DettaglioOffice.css">
+    <link rel="stylesheet" href="${ctx}/resources/css/DetailsOffice.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
@@ -14,59 +14,72 @@
 <!-- NAVBAR -->
 
 <#if isloggedin == "isLoggedIn">
-    <#include "/navbar/navbar1.ftl">
-<#else>
     <#include "/navbar/navbar.ftl">
+<#else>
+    <#include "/navbar/navbar1.ftl">
 </#if>
 
 <!-- CONTENUTO PRINCIPALE -->
-<div class="container my-5 dettagli-container">
+<div class="container my-5  dettagli-container style="max-width: 1200px; margin: auto;">
     <div class="row g-4">
-        <!-- Galleria Immagini -->
+        <!-- COLONNA SINISTRA - Galleria immagini -->
         <div class="col-lg-6">
             <div class="galleria-foto d-flex flex-wrap gap-3">
-                {% for immagine in ufficio.foto %}
-
-                    <img src="{{ immagine }}" alt="image">
-
-                {% endfor %}
+                <#list foto as photo>
+                    <img src="${photo}" alt="image">
+                </#list>
             </div>
         </div>
 
-        <!-- Info Ufficio -->
-        <div class="col-lg-6">
-            <div class="info-ufficio">
-                <h1 class="mb-3">{{ufficio.ufficio.titolo }}</h1>
-                <p><strong>Indirizzo:</strong> {{ ufficio.ufficio.indirizzo }}</p>
-                <p><strong>Posti disponibili:</strong> {{ ufficio.ufficio.numeroPostazioni }}</p>
+        <!-- COLONNA DESTRA - Info + pulsanti -->
+        <div class="col-lg-6 flex-column justify-content-between">
+            <!-- Info ufficio -->
+            <div class="info-ufficio mb-4">
+                <h1 class="mb-3">${ufficio.titolo}</h1>
+                <p><strong>Indirizzo:</strong> ${ufficio.indirizzo}</p>
+                <p><strong>Posti disponibili:</strong> ${ufficio.numeroPostazioni}</p>
                 <p><strong>Contatti:</strong> info@affittaufficio.it - +39 0123 456789</p>
-                <p><strong>Descrizione:</strong> {{ ufficio.ufficio.descrizione }}</p>
-                <p><strong>Superficie:</strong> {{ ufficio.ufficio.superficie }} m^2</p>
+                <p><strong>Descrizione:</strong> ${ufficio.descrizione}</p>
+                <p><strong>Superficie:</strong> ${ufficio.superficie} m²</p>
                 <p><strong>Servizi Aggiuntivi:</strong></p>
                 <ul>
-                    {% for servizio in ufficio.ufficio.serviziAggiuntivi %}
-                    <li>{{ servizio.nomeServizio }}</li>
-                    {% endfor %}
+                    <#list ufficio.serviziAggiuntivi as servizio>
+                        <li>${servizio.nomeServizio}</li>
+                    </#list>
                 </ul>
-
-                <div class="prezzo h4 text-danger text-end">Prezzo: {{ ufficio.ufficio.prezzo}} euro al giorno</div>
-                <a href="/search/showoffice/detailsoffice/confirm/reservated/{{ date }}/{{ ufficio.ufficio.id }}/{{ fascia }}" class="btn btn-danger mt-3"><i class="fa-solid fa-credit-card"></i> Vai al pagamento</a>
+                <div class="prezzo h4 text-danger text-end">Prezzo: ${ufficio.prezzo} euro al giorno</div>
             </div>
-            <div class="row mt-3">
-                <div class="col-6">
-                    <a href="/search/showoffice/detailsoffice/review/{{ufficio.ufficio.id}}" class="btn btn-danger w-100">
-                        <i class="fa-solid fa-star"></i> Recensioni
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a href="/search/showoffice/detailsoffice/Report/{{ ufficio.ufficio.id }}" class="btn btn-danger w-100">
-                        <i class="fa-solid fa-flag"></i> Segnala
-                    </a>
+
+            <!-- BOTTONI -->
+            <div class="bottone-container">
+                <!-- Bottone "Vai al pagamento" -->
+                <form method="post" action="${ctx}/home-utente/search/showoffice/detailsoffice/confirm">
+                    <input type="hidden" name="date" value="${date}">
+                    <input type="hidden" name="idufficio" value="${ufficio.id}">
+                    <input type="hidden" name="slot" value="${slot}">
+                    <button type="submit" class="btn btn-danger w-100 py-3 fs-5 mb-3">
+                        <i class="fa-solid fa-credit-card"></i> Vai al pagamento
+                    </button>
+                </form>
+
+                <!-- Due bottoni affiancati -->
+                <div class="row">
+                    <div class="col-6 pe-1">
+                        <a href="${ctx}/home-utente/search/showoffice/detailsoffice/review?idufficio=${ufficio.id}" class="btn btn-danger w-100">
+                            <i class="fa-solid fa-star"></i> Recensioni
+                        </a>
+                    </div>
+                    <div class="col-6 ps-1">
+                        <a href="${ctx}/home-utente/search/showoffice/detailsoffice/Report?idufficio=${ufficio.id}" class="btn btn-danger w-100">
+                            <i class="fa-solid fa-flag"></i> Segnala
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <#include "/navbar/footer.ftl">
 
 <!-- BOOTSTRAP SCRIPT -->
