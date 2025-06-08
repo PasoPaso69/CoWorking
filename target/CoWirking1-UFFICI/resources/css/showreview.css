@@ -1,6 +1,13 @@
-body{
+html,body{
     background-color: #222 !important;
+    height:100%;
+     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
+.main-content {
+    flex: 1;
+  }
 .star-rating {
     font-size: 2rem;
     color: #ccc;
@@ -19,3 +26,9 @@ body{
     margin-top: 5%;
     margin-bottom: 5%;
 }
+.site-footer {
+    background-color: #000;
+    color: white;
+    padding-bottom: 0;
+    text-align: center;
+  }

@@ -5,11 +5,14 @@
 package com.mycompany.coworking1.DAO.impl;
 
 import com.mycompany.coworking1.DAO.PrenotazioneDao;
+import com.mycompany.coworking1.Model.entity.EPrenotazione;
+import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.FasciaOrariaEnum;
 import com.mycompany.coworking1.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -37,4 +40,15 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
 
         return count != null ? count : 0L;
     }
+    
+    @Override
+      public List<EPrenotazione> getReservationbyUser(EProfilo user) {
+    return em.createQuery(
+        "SELECT DISTINCT p FROM EPrenotazione p " +
+        "JOIN FETCH p.ufficio u " +
+        "LEFT JOIN FETCH u.foto " +  // 👈 carica le foto dell’ufficio
+        "WHERE p.utente = :utente", EPrenotazione.class)
+        .setParameter("utente", user)
+        .getResultList();
+}
 }

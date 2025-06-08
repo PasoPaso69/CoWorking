@@ -4,7 +4,6 @@ com\mycompany\coworking1\DAO\impl\FotoDaoimpl.class
 com\mycompany\coworking1\Model\entity\EPrenotazione.class
 com\mycompany\coworking1\Model\entity\main.class
 com\mycompany\coworking1\DAO\impl\ProfiloDaoImpl.class
-com\mycompany\coworking1\Controller\ReviewvController.class
 com\mycompany\coworking1\Controller\homeUserController.class
 com\mycompany\coworking1\DAO\impl\PrenotazioneDaoImpl.class
 com\mycompany\coworking1\DAO\UfficioDao.class
@@ -13,9 +12,11 @@ com\mycompany\coworking1\DAO\impl\UfficioDaoImpl.class
 com\mycompany\coworking1\Model\entity\EIntervalliDisponibilita.class
 com\mycompany\coworking1\DAO\RecensioniDao.class
 com\mycompany\coworking1\Service\impl\ProfiloServiceImpl.class
+com\mycompany\coworking1\Controller\ShowReservationController.class
 com\mycompany\coworking1\AppShutdownListener.class
 com\mycompany\coworking1\Controller\DetailsOfficeController.class
 com\mycompany\coworking1\DAO\FotoDao.class
+com\mycompany\coworking1\Controller\ShowFormReview.class
 com\mycompany\coworking1\DAO\PrenotazioneDao.class
 com\mycompany\coworking1\Model\entity\ELocatore.class
 com\mycompany\coworking1\Model\entity\EServiziAggiuntivi.class
@@ -39,3 +40,4 @@ com\mycompany\coworking1\Controller\PhotoController.class
 com\mycompany\coworking1\Controller\ReportController.class
 com\mycompany\coworking1\Controller\LoginController.class
 com\mycompany\coworking1\DAO\ProfiloDao.class
+com\mycompany\coworking1\Controller\ReviewController.class

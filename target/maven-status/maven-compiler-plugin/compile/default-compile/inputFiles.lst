@@ -1,5 +1,6 @@
-C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ReviewvController.java
+C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ReviewController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\DAO\impl\RecensioniDaoImpl.java
+C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ShowFormReview.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\BaseController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\util\EntityManagerUtil.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\DAO\UfficioDao.java
@@ -36,6 +37,7 @@ C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\en
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ReportController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\DAO\impl\ProfiloDaoImpl.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Service\impl\ProfiloServiceImpl.java
+C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ShowReservationController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EUfficio.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\main.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EProfilo.java

@@ -89,12 +89,13 @@ public class SearchController extends BaseController {
             long prenotazioni = prenotazioneDao.getActiveReservationsByOfficeDateSlot(u, date, slot);
           
             if (prenotazioni < u.getNumeroPostazioni()) {
-                List<EFoto> foto = fotoDao.getFotobyDb(u.getId());
-               EFoto photo = foto.get(0);
+              List<EFoto> foto = fotoDao.getFotobyDb(u.getId());
+String photoUrl = null;
 
-                String photoUrl = (photo != null) ? request.getContextPath()+"/photo?id=" + photo.getId()
-                        : null;
-
+if (foto != null && !foto.isEmpty()) {
+    EFoto photo = foto.get(0);
+    photoUrl = request.getContextPath() + "/photo?id=" + photo.getId();
+}
                 Map<String, Object> entry = new HashMap<>();
                 entry.put("ctx", request.getContextPath());
                 entry.put("ufficio", u);

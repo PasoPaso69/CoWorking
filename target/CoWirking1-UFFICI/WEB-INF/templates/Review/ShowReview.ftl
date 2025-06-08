@@ -15,7 +15,7 @@
     <#include "/navbar/navbar1.ftl">
 </#if>
 
-
+<div class="main-content">
 <div class="container mt-5">
     <h2 class="text-center text-light mb-4">Recensioni degli utenti</h2>
     <div class="container mt-5">
@@ -49,6 +49,7 @@
         </div>
         </#list>
     </div>
+</div>
 </div>
 
 <#include "/navbar/footer.ftl">
