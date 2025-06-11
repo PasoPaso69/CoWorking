@@ -16,6 +16,7 @@ import com.mycompany.coworking1.Model.enums.FasciaOrariaEnum;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import java.io.IOException;
 import java.io.Writer;
@@ -50,6 +51,7 @@ public class ReservationController extends BaseController {
     }
       @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        EntityManager em = (EntityManager) request.getAttribute("em");
          UfficioDao ufficioDao = new UfficioDaoImpl(em);
     PrenotazioneDao prenotazioneDao = new PrenotazioneDaoImpl(em);
       String idufficio = request.getParameter("idufficio");
@@ -83,7 +85,7 @@ public class ReservationController extends BaseController {
                em.getTransaction().begin();
          
           
-            EUfficio office = em.find(EUfficio.class, idufficio,LockModeType.PESSIMISTIC_WRITE);
+            EUfficio office = em.find(EUfficio.class, idufficio);
              
             long prenotazioni = prenotazioneDao.getActiveReservationsByOfficeDateSlot(office, date, slot);
                data.put("nome", nome);
@@ -131,6 +133,7 @@ Template template = cfg.getTemplate("confirm/confirmReservation.ftl");
         }
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        EntityManager em = (EntityManager) request.getAttribute("em");
         try{
          String isLoggedIn="notIsloggedin";
              String nome=null;

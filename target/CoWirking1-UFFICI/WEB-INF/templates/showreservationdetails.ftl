@@ -43,7 +43,6 @@
 
                 <hr>
                 <p><strong>Prenotato il:</strong> <span class="text-primary">${ reservation.data}</span> per la fascia della <span class="text-primary">${ reservation.fascia }</span> </p>
-                <p><strong>Prenotazione effettuata il:</strong> <span class="text-success">12/04/2026</span> alle ore <span class="text-success">08:40</span></p>
             </div>
         </div>
         

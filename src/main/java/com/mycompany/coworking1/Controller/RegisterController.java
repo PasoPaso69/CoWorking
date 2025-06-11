@@ -1,5 +1,7 @@
 package com.mycompany.coworking1.Controller;
 
+import com.mycompany.coworking1.DAO.PrenotazioneDao;
+import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +23,14 @@ import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
 import com.mycompany.coworking1.DAO.impl.ProfiloDaoImpl;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ELocatore;
+import com.mycompany.coworking1.Model.entity.EPrenotazione;
+import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/register")
 public class RegisterController extends BaseController {
@@ -42,7 +50,7 @@ public class RegisterController extends BaseController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-           
+        EntityManager em = (EntityManager) req.getAttribute("em");
         this.userService = new ProfiloServiceImpl(new ProfiloDaoImpl(em));
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -108,5 +116,35 @@ public class RegisterController extends BaseController {
     em.close();
 }
         }
+    }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<String, Object> data = new HashMap<>();
+     EntityManager em = (EntityManager) req.getAttribute("em");
+        HttpSession session = req.getSession(false);
+         if (session != null) {
+            Object userObj = session.getAttribute("user");
+             String nome = "";
+        String cognome = "";
+            
+                EProfilo user = (EProfilo) userObj;
+                 nome = user.getName();
+                cognome = user.getSurname();
+                
+                data.put("nome", nome);
+              data.put("cognome", cognome);
+           
+          data.put("user",user);
+            
+              data.put("ctx", req.getContextPath());
+Template template = cfg.getTemplate("login/profile.ftl");
+        // Imposta la risposta
+        resp.setContentType("text/html;charset=UTF-8");
+            try (Writer out = resp.getWriter()) {
+                template.process(data, out);
+            } catch (Exception e) {
+                throw new ServletException("Errore nel template", e);
+            }
+
+        }else{resp.sendRedirect(req.getContextPath() + "/login");}
     }
 }

@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navLinks">
             <ul class="navbar-nav ms-auto gap-3">
 
-                <li class="nav-item"><a class="nav-link" href="${ctx}/profile"><i class="fas fa-user"></i> Profilo</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/register"><i class="fas fa-user"></i> Profilo</a></li>
                 <li class="nav-item"><a class="nav-link" href="${ctx}/home-utente"><i class="fas fa-home"></i> Home</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="${ctx}/home-utente/search/showoffice/detailsoffice/confirm"><i class="fas fa-bookmark"></i> Prenotazioni</a></li>

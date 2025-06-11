@@ -49,7 +49,7 @@
 
             <div class="col-md-3">
                 <label class="form-label">Data</label>
-                <input type="date" name="date" class="form-control" required>
+                <input type="date" name="date" class="form-control" required min="${.now?string("yyyy-MM-dd")}">
             </div>
 
             <div class="col-md-3">

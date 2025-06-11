@@ -48,7 +48,7 @@ public class LoginController extends BaseController {
     
       @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     
+     EntityManager em = (EntityManager) req.getAttribute("em");
     resp.setContentType("text/html;charset=UTF-8");
     
     Map<String, Object> data = new HashMap<>();
@@ -64,7 +64,7 @@ public class LoginController extends BaseController {
     
      @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+        EntityManager em = (EntityManager) req.getAttribute("em");
          this.userService = new ProfiloServiceImpl(new ProfiloDaoImpl(em));
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -77,13 +77,16 @@ public class LoginController extends BaseController {
     session.setAttribute("user", user);
     //session.setAttribute("userName", user.getName());
 
-    if (user instanceof ELocatore) {
-        session.setAttribute("userType", "locatore");
-        resp.sendRedirect(req.getContextPath() + "/home-locatore");
-    } else  {
-        session.setAttribute("userType", "utente");
-        resp.sendRedirect(req.getContextPath() + "/home-utente");
-    } // es. home protetta
+    if (user.isAdmin()) {
+    session.setAttribute("userType", "admin");
+    resp.sendRedirect(req.getContextPath() + "/home-admin");
+} else if (user instanceof ELocatore) {
+    session.setAttribute("userType", "locatore");
+    resp.sendRedirect(req.getContextPath() + "/home-locatore");
+} else {
+    session.setAttribute("userType", "utente");
+    resp.sendRedirect(req.getContextPath() + "/home-utente");
+} // es. home protetta
         } else {
             Map<String, Object> data = new HashMap<>();
             data.put("ctx", req.getContextPath());

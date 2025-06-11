@@ -170,7 +170,7 @@
           <h1 class="mb-3">${ufficio.titolo}</h1>
           <p><strong>Indirizzo:</strong> ${ufficio.indirizzo}</p>
           <p><strong>Posti disponibili:</strong> ${ufficio.numeroPostazioni}</p>
-          <p><strong>Contatti:</strong> info@affittaufficio.it - +39 0123 456789</p>
+          <p><strong>Contatti:</strong> ${ufficio.locatore.phone}</p>
           <p><strong>Descrizione:</strong> ${ufficio.descrizione}</p>
           <p><strong>Superficie:</strong> ${ufficio.superficie} m<sup>2</sup></p>
           <p><strong>Servizi Aggiuntivi:</strong></p>

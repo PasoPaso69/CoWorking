@@ -26,9 +26,9 @@ public class EFoto {
     @Column(name = "id", updatable = false, nullable = false, length = 36)
     private String id;
 
-    @Lob
-    @Column(name = "content")
-    private byte[] content;
+   @Lob
+@Column(name = "content", columnDefinition = "LONGBLOB")
+private byte[] content;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "ufficio_id")

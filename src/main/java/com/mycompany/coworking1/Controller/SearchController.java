@@ -33,6 +33,7 @@ import javax.persistence.PersistenceUnit;
 import com.mycompany.coworking1.Model.entity.EFoto;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
+import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
 import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
 import com.mycompany.coworking1.util.EntityManagerUtil;
 import freemarker.template.Configuration;
@@ -62,7 +63,7 @@ public class SearchController extends BaseController {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    
+    EntityManager em = (EntityManager) request.getAttribute("em");
         String query = request.getParameter("query");
     String dateStr = request.getParameter("date");
     String slot = request.getParameter("slot");
@@ -84,6 +85,8 @@ public class SearchController extends BaseController {
 
         for (EUfficio u : uffici) {
             if (u.isHidden()) continue;
+            
+            if (u.getStato() != StatoUfficioEnum.Approvato) continue;
 
             // Conta prenotazioni attive tramite DAO
             long prenotazioni = prenotazioneDao.getActiveReservationsByOfficeDateSlot(u, date, slot);

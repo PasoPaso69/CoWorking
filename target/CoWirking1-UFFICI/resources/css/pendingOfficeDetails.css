@@ -1,0 +1,14 @@
+
+.carousel {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.carousel img {
+            max-height: 250px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 8px;
+        }
+.btn-approve { background-color: #2fb344; color: white; }
+.btn-reject { background-color: #d63939; color: white; }
+

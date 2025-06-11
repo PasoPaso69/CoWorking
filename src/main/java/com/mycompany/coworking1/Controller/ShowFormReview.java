@@ -12,6 +12,7 @@ import com.mycompany.coworking1.Model.entity.EUfficio;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import jakarta.persistence.EntityManager;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class ShowFormReview extends BaseController {
     }
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-     
+     EntityManager em = (EntityManager) request.getAttribute("em");
         HttpSession session = request.getSession(false);
 String idreservation = request.getParameter("idreservation");
         String isLoggedIn = "notLoggedIn";
@@ -82,7 +83,7 @@ String idreservation = request.getParameter("idreservation");
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-     
+     EntityManager em = (EntityManager) request.getAttribute("em");
 
         try {
             // Recupero parametro id dall'URL o dal form (ad esempio come parametro)

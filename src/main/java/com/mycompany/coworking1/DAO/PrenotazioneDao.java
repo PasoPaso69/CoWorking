@@ -15,6 +15,12 @@ import java.util.List;
  * @author 39327
  */
 public interface PrenotazioneDao {
+    
     public long getActiveReservationsByOfficeDateSlot(EUfficio office, LocalDate date, String fascia);
-     public List<EPrenotazione> getReservationbyUser(EProfilo User);
+    
+    public List<EPrenotazione> getReservationbyUser(EProfilo User);
+     
+    public List<EPrenotazione> getReservationbyoffice(EUfficio office);
+     
+    public List<LocalDate> findReservationDatesByOfficeId(String officeId, int year) ;
 }
