@@ -6,6 +6,7 @@ package com.mycompany.coworking1.DAO;
 
 import com.mycompany.coworking1.DAO.impl.FotoDaoimpl;
 import com.mycompany.coworking1.Model.entity.EFoto;
+import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import java.util.List;
@@ -22,4 +23,7 @@ public interface FotoDao {
     
 
      public List<EFoto> getFotobyDb(String idUfficio);
+     
+     public EFoto getFirstPhotoByOffice(EUfficio ufficio);
+     
 }

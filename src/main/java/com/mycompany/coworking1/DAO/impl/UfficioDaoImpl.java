@@ -46,6 +46,12 @@ public class UfficioDaoImpl  implements UfficioDao{
                  .setParameter("fascia", fasciaEnum)
                  .getResultList();
     }
+    
+     public List<EUfficio> getUfficiByLocatoreId(Long idLocatore) {
+        return em.createQuery("SELECT u FROM EUfficio u WHERE u.locatore.id = :id", EUfficio.class)
+                 .setParameter("id", idLocatore)
+                 .getResultList();
+    }
 
     
 }

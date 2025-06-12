@@ -1,0 +1,61 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 11 giu 2025, 22:37:09
+    Author     : Lenovo
+*/
+
+body {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Navbar container */
+#sidebar {
+  width: 15rem;
+  flex-shrink: 0;
+}
+
+/*permette di dare effetto agli elementi della navbar quando passi il cursore*/
+.navbar-dark .nav-link:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenuto principale */
+.page-wrapper {
+  flex-grow: 1;
+  padding: 0;
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  body {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+    position: relative;
+
+    z-index: 1000;        /* Superiore al contenuto */
+
+  }
+
+  .page-wrapper {
+
+    padding: 1rem;
+  }
+
+}
+.card-img-top {
+  width: 100%;
+  height: 200px; /* fissa altezza a 200px, puoi cambiare */
+  object-fit: cover;
+  border-radius: 8px 8px 0 0; /* mantiene bordi arrotondati */
+}
+
