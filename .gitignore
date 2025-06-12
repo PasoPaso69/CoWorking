@@ -1,1 +1,17 @@
-target/
+# Cartelle build e output
+/target/
+
+# File di configurazione IDE (se non vuoi committarli)
+/nbproject/private/
+/.idea/
+/*.iml
+
+# File temporanei e di sistema
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# File di configurazione di sistema e dipendenze
+*.class
+*.jar
