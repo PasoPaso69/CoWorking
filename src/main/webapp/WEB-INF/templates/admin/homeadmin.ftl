@@ -8,33 +8,7 @@
   <!-- Tabler CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet" />
 
-  <style>
-    .tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 2px solid #ddd;
-    }
-    .tab {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-    }
-    .tab.active {
-      font-weight: bold;
-      border-bottom-color: #206bc4;
-      color: #206bc4;
-    }
-    .section-tab {
-      display: none;
-    }
-    .section-tab.active {
-      display: block;
-    }
-    .office-card {
-      cursor: pointer;
-    }
-  </style>
+   <link rel="stylesheet" href="${ctx}/resources/css/homeadmin.css" />
 </head>
 
 <body>

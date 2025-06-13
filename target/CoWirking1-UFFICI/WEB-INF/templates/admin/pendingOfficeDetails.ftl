@@ -5,21 +5,18 @@
     <title>Dettaglio Ufficio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet" />
-    <style>
-.carousel {
-  max-height: 250px;
-  overflow-y: auto;
-}
-        .carousel img {
-            max-height: 250px;
-            object-fit: cover;
-            width: 100%;
-            border-radius: 8px;
-        }
-        .btn-approve { background-color: #2fb344; color: white; }
-        .btn-reject { background-color: #d63939; color: white; }
-    </style>
+     <link rel="stylesheet" href="${ctx}/resources/css/pendingOfficeDetilas.css" />
 </head>
+<style>
+.carousel img {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  margin: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+</style>
 <body>
 <div class="page">
 <#include "/navbar/navbaradmin.ftl">

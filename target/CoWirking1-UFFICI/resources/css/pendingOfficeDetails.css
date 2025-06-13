@@ -9,6 +9,6 @@
             width: 100%;
             border-radius: 8px;
         }
-.btn-approve { background-color: #2fb344; color: white; }
-.btn-reject { background-color: #d63939; color: white; }
+.btn-approve { background-color: #2fb344; color: green; }
+.btn-reject { background-color: #d63939; color: red; }
 
