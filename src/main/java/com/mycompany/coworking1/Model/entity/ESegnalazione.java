@@ -32,6 +32,9 @@ public class ESegnalazione {
 
     @Column(nullable = false)
     private String commento;
+    
+    @Column(name = "is_hidden", nullable = false)
+    private boolean solved = false;
 
     @OneToOne(mappedBy = "segnalazione", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private ERimborso rimborso;
@@ -70,6 +73,11 @@ public class ESegnalazione {
 
     public ERimborso getRimborso() {
         return rimborso;
+    }
+    
+    public ESegnalazione setSolved(Boolean Solved){
+        this.solved=Solved;
+        return this;
     }
   
     

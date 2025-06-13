@@ -65,7 +65,11 @@ public class reimbursementController extends BaseController {
         
         reimbursement.setSegnalazione(Report);
         
+        Report.setSolved(true);
+        
         em.persist(reimbursement);
+        
+        em.persist(Report);
         
         em.getTransaction().commit();
         

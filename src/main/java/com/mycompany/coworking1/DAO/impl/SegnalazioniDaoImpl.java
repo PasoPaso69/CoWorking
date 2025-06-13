@@ -25,7 +25,7 @@ public class SegnalazioniDaoImpl implements SegnalazioniDao {
     @Override
     public List<ESegnalazione> getReportbyDb(String idUfficio){
         
-        String jpql ="SELECT f FROM ESegnalazione f WHERE f.ufficio.id = :id";
+        String jpql ="SELECT f FROM ESegnalazione f WHERE f.ufficio.id = :id AND f.solved = false";
         
          
         List<ESegnalazione> Report =  em.createQuery(jpql, ESegnalazione.class)

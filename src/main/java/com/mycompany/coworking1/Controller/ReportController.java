@@ -130,6 +130,7 @@ String idufficio = request.getParameter("idufficio");
             report.setCommento(commento);
             report.setUfficio(ufficio);
             report.setUtente(user);
+            report.setSolved(false);
 
             em.persist(report);
             em.getTransaction().commit();
