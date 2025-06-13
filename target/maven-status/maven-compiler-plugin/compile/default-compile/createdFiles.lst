@@ -18,8 +18,10 @@ com\mycompany\coworking1\DAO\impl\RecensioniDaoImpl.class
 com\mycompany\coworking1\Controller\ReservationController.class
 com\mycompany\coworking1\Model\entity\ERimborso.class
 com\mycompany\coworking1\Controller\admin\homeAdminController.class
+com\mycompany\coworking1\DAO\RimborsoDao.class
 com\mycompany\coworking1\Controller\SearchController.class
 com\mycompany\coworking1\Model\entity\ERecensione.class
+com\mycompany\coworking1\Controller\admin\adminRestoreOfficeController.class
 com\mycompany\coworking1\Controller\PhotoController.class
 com\mycompany\coworking1\Controller\ReportController.class
 com\mycompany\coworking1\Controller\LoginController.class
@@ -51,3 +53,5 @@ com\mycompany\coworking1\util\HibernateUtil.class
 com\mycompany\coworking1\Model\entity\EUfficio.class
 com\mycompany\coworking1\Model\entity\ESegnalazione.class
 com\mycompany\coworking1\DAO\ProfiloDao.class
+com\mycompany\coworking1\Controller\admin\reimbursementController.class
+com\mycompany\coworking1\DAO\impl\RimborsoDaoImpl.class

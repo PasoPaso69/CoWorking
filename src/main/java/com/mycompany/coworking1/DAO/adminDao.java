@@ -15,5 +15,7 @@ import java.util.List;
 public interface adminDao {
     
      public List<EUfficio> findByStato(StatoUfficioEnum stato);
+     
+     public List<EUfficio> findByHiddenTrue();
     
 }

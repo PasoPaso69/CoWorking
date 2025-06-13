@@ -51,12 +51,21 @@
             <#else>
               <ul class="list-group">
                 <#list reports as report>
-                  <#if report.commento?has_content>
-                    <li class="list-group-item">
-                      <strong>Commento:</strong> ${report.commento}
-                    </li>
-                  </#if>
-                </#list>
+  <#if report.commento?has_content>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>Commento:</strong> ${report.commento}
+      </div>
+      <form method="post" action="${ctx}/admin/office/reimbursement" style="display: inline;">
+  <input type="hidden" name="idReport" value="${report.id}" />
+  <input type="hidden" name="id" value="${office.id}" />
+  <button type="submit" class="btn btn-sm btn-primary">Rimborsa</button>
+</form>
+
+    </li>
+  </#if>
+</#list>
+
               </ul>
             </#if>
           </div>

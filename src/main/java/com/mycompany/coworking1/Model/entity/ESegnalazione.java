@@ -35,6 +35,10 @@ public class ESegnalazione {
 
     @OneToOne(mappedBy = "segnalazione", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private ERimborso rimborso;
+    
+     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utente_id")
+    private EProfilo utente;
 
     public ESegnalazione() {
         // Costruttore di default richiesto da Hibernate
@@ -67,10 +71,19 @@ public class ESegnalazione {
     public ERimborso getRimborso() {
         return rimborso;
     }
-
+  
+    
     public ESegnalazione setRimborso(ERimborso rimborso) {
         this.rimborso = rimborso;
         return this;
+    }
+    
+    public ESegnalazione setUtente (EProfilo utente){
+        this.utente = utente;
+        return this;
+    }
+    public EProfilo getUtente(){
+        return utente;
     }
 
     @Override

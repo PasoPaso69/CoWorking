@@ -46,13 +46,13 @@ public class homeAdminController extends BaseController {
      resp.setContentType("text/html;charset=UTF-8");
      adminDao adminDao = new adminDaoImpl(em);
       try{
-     
+      List<EUfficio> deletedOffice = adminDao.findByHiddenTrue();
       List<EUfficio> approvedOffice = adminDao.findByStato(Approvato);
        List<EUfficio> rejectedOffice = adminDao.findByStato(NonApprovato);
         List<EUfficio> pendingOffice = adminDao.findByStato(InAttesa);
         
          Map<String, Object> data = new HashMap<>();
-         
+         data.put("deletedOffice", deletedOffice);
          data.put("approvedoffice", approvedOffice);
          data.put("rejectedOffice", rejectedOffice);
          data.put("pendingOffice", pendingOffice);

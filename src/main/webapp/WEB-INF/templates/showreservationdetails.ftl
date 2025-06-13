@@ -38,7 +38,7 @@
                 <h1 class="mb-3">${office.titolo }</h1>
                 <p><strong>Indirizzo: </strong> ${ office.indirizzo }</p>
                 <p><strong>Posti disponibili: </strong>${office.numeroPostazioni}</p>
-                <p><strong>Contatti: </strong> info@affittaufficio.it - +39 0123 456789</p>
+                <p><strong>Contatti: </strong> ${office.locatore.phone}</p>
                 <p><strong>Descrizione: </strong> ${ office.descrizione }</p>
 
                 <hr>

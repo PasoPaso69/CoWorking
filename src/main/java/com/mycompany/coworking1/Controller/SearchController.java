@@ -22,24 +22,22 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import jakarta.persistence.EntityManager;
+
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+
 import com.mycompany.coworking1.Model.entity.EFoto;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
-import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
-import com.mycompany.coworking1.util.EntityManagerUtil;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import jakarta.persistence.Persistence;
+
 import java.io.Writer;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -84,6 +82,7 @@ public class SearchController extends BaseController {
         List<EUfficio> uffici = ufficioDao.findByThree(query, date, slot);
 
         for (EUfficio u : uffici) {
+            
             if (u.isHidden()) continue;
             
             if (u.getStato() != StatoUfficioEnum.Approvato) continue;

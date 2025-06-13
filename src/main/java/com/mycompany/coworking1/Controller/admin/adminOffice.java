@@ -8,15 +8,15 @@ import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.PrenotazioneDao;
 import com.mycompany.coworking1.DAO.RecensioniDao;
 import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
-import com.mycompany.coworking1.DAO.impl.ProfiloDaoImpl;
+
 import com.mycompany.coworking1.DAO.impl.RecensioniDaoImpl;
-import com.mycompany.coworking1.Model.entity.EPrenotazione;
+
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
 import com.mycompany.coworking1.Service.PrenotazioneService;
-import com.mycompany.coworking1.Service.ProfiloService;
+
 import com.mycompany.coworking1.Service.impl.PrenotazioneServiceImpl;
-import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -31,7 +31,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.mycompany.coworking1.Model.entity.ERecensione;
+
+import java.time.LocalDateTime;
 
 /**
  *
@@ -123,9 +124,13 @@ public class adminOffice extends BaseController {
          PrenotazioneDao reservationDao = new PrenotazioneDaoImpl(em);
          RecensioniDao reviewDao = new RecensioniDaoImpl(em);
          EUfficio office= em.find(EUfficio.class, officeId);
-         List<EPrenotazione> prenotazioni = reservationDao.getReservationbyoffice(office);
-         List<ERecensione>review = reviewDao.getReviewbyDb(officeId);
+         /*
+        List<EPrenotazione> prenotazioni = reservationDao.getReservationbyoffice(office);
+        List<ERecensione>review = reviewDao.getReviewbyDb(officeId);
+         */
          em.getTransaction().begin();
+         
+         /*
          for (ERecensione r : review){
              em.remove(r);
          }
@@ -135,9 +140,10 @@ public class adminOffice extends BaseController {
       }    
          em.remove(office);
          
-        /*
-         office.setHidden("1");
-         */
+        */
+         office.setHidden(true);
+         office.setDataCancellazione(LocalDateTime.now());
+        
          
          
          

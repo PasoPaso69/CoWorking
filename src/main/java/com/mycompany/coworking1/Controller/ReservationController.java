@@ -8,6 +8,7 @@ import com.mycompany.coworking1.DAO.PrenotazioneDao;
 import com.mycompany.coworking1.DAO.UfficioDao;
 import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
 import com.mycompany.coworking1.DAO.impl.UfficioDaoImpl;
+import com.mycompany.coworking1.Model.entity.EPagamento;
 import com.mycompany.coworking1.Model.entity.EPrenotazione;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
@@ -92,7 +93,8 @@ public class ReservationController extends BaseController {
                 data.put("cognome", cognome);
                 data.put("isloggedin",isLoggedIn);
                 data.put("ctx", request.getContextPath());
-             if (prenotazioni >= office.getNumeroPostazioni()){
+             if (prenotazioni >= office.getNumeroPostazioni() || office.isHidden()){
+                 
                  Template template = cfg.getTemplate("confirm/PlaceNotAvaible.ftl");
         // Imposta la risposta
         response.setContentType("text/html;charset=UTF-8");
@@ -109,8 +111,15 @@ public class ReservationController extends BaseController {
                 prenotazione.setUfficio(office);
                 prenotazione.setFascia(slotEnum);
                 prenotazione.setUtente(user);
-
-            em.persist(prenotazione);
+                
+                EPagamento payment = new EPagamento();
+                payment.setImporto(office.getPrezzo());
+                payment.setPrenotazione(prenotazione);
+                
+              em.persist(prenotazione);
+              
+              em.persist(payment);
+              
               em.getTransaction().commit();
             
              

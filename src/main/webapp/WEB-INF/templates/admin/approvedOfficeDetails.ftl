@@ -139,6 +139,10 @@
                                         <a href="${ctx}/actionOffice?id=${office.id}" class="btn btn-outline-primary mt-3">
                                         Visualizza segnalazioni
                                         </a>
+                                       <a href="${ctx}/admin/office/reimbursement?id=${office.id}" class="btn btn-outline-success mt-3">
+                                        Visualizza rimborsi
+                                       </a>
+
 
                                     </div>
                                 </div>

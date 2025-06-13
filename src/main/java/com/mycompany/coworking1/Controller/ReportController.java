@@ -129,6 +129,7 @@ String idufficio = request.getParameter("idufficio");
             ESegnalazione report = new ESegnalazione();
             report.setCommento(commento);
             report.setUfficio(ufficio);
+            report.setUtente(user);
 
             em.persist(report);
             em.getTransaction().commit();

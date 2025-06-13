@@ -26,9 +26,14 @@ public class adminDaoImpl implements adminDao {
     @Override 
     public List<EUfficio> findByStato(StatoUfficioEnum stato) {
     return em.createQuery(
-        "SELECT u FROM EUfficio u WHERE u.stato = :stato", EUfficio.class)
+        "SELECT u FROM EUfficio u WHERE u.stato = :stato AND u.isHidden = false", EUfficio.class)
         .setParameter("stato", stato)
         .getResultList();
+}
+    @Override
+public List<EUfficio> findByHiddenTrue() {
+    return em.createQuery("SELECT u FROM EUfficio u WHERE u.isHidden = true", EUfficio.class)
+             .getResultList();
 }
     
 }
