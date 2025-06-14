@@ -16,6 +16,7 @@ C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\en
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\LoginController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EIndirizzo.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\ReservationController.java
+C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\User\homeUserController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\ELocatore.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EFoto.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EPrenotazione.java
@@ -38,7 +39,6 @@ C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\util\Ent
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\DAO\UfficioDao.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\EPagamento.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\RegisterController.java
-C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\homeUserController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Controller\DetailsOfficeController.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\Model\entity\ERecensione.java
 C:\Users\39327\Desktop\CoWorking\src\main\java\com\mycompany\coworking1\DAO\impl\FotoDaoimpl.java

@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
-    
+    //this get method call the form to do the login
       @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
      EntityManager em = (EntityManager) req.getAttribute("em");
@@ -61,7 +61,7 @@ public class LoginController extends BaseController {
         throw new ServletException("Errore nel template", e);
     }
 }
-    
+    //this post do a control with email and password to do login
      @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EntityManager em = (EntityManager) req.getAttribute("em");
@@ -76,7 +76,7 @@ public class LoginController extends BaseController {
     HttpSession session = req.getSession();
     session.setAttribute("user", user);
     //session.setAttribute("userName", user.getName());
-
+//get the right home for the right user
     if (user.isAdmin()) {
     session.setAttribute("userType", "admin");
     resp.sendRedirect(req.getContextPath() + "/home-admin");
@@ -85,7 +85,7 @@ public class LoginController extends BaseController {
     resp.sendRedirect(req.getContextPath() + "/home-locatore");
 } else {
     session.setAttribute("userType", "utente");
-    resp.sendRedirect(req.getContextPath() + "/home-utente");
+    resp.sendRedirect(req.getContextPath() + "/home-User");
 } // es. home protetta
         } else {
             Map<String, Object> data = new HashMap<>();

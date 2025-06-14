@@ -20,7 +20,7 @@ public class FotoDaoimpl  implements FotoDao{
     public FotoDaoimpl(EntityManager em) {
         this.em = em;
     }
-    
+    // take the foto from the db with the office id in input
     @Override
     public List<EFoto> getFotobyDb(String idUfficio){
          

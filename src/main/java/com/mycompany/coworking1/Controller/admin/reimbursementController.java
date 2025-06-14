@@ -30,10 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 39327
  */
+
 @WebServlet("/admin/office/reimbursement")
 public class reimbursementController extends BaseController {
     private Configuration cfg;
 
+    //start freemarker
     @Override
     public void init() throws ServletException {
         
@@ -43,7 +45,7 @@ public class reimbursementController extends BaseController {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
-    
+   // with this post yhe admin can create a reimbursement to answer a report
     
      protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -75,7 +77,7 @@ public class reimbursementController extends BaseController {
         
         resp.sendRedirect(req.getContextPath() + "/home-admin");
     }
-     
+     //permette di mostrare tutti i template
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
@@ -91,11 +93,12 @@ public class reimbursementController extends BaseController {
        Map<String, Object> data = new HashMap<>();
        
        data.put("office", office);
+       
        data.put("reimbursements", reimbursements);
       
         data.put("ctx", request.getContextPath());
             Template template = cfg.getTemplate("admin/ReimbusamentOffice.ftl");
-              response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
 
         try (Writer out = response.getWriter()) {
                 template.process(data, out);

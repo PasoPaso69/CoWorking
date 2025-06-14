@@ -22,6 +22,7 @@ public class RimborsoDaoImpl implements RimborsoDao{
         this.em = em;
     }
     
+    //take the reimbuserment from the db using office id
     @Override
     public List<ERimborso> getReimbursementbyDb(String idUfficio){
         

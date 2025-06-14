@@ -22,7 +22,7 @@ public class adminDaoImpl implements adminDao {
     public adminDaoImpl(EntityManager em) {
         this.em = em;
     }
-    
+    //find the office by the state
     @Override 
     public List<EUfficio> findByStato(StatoUfficioEnum stato) {
     return em.createQuery(
@@ -30,6 +30,7 @@ public class adminDaoImpl implements adminDao {
         .setParameter("stato", stato)
         .getResultList();
 }
+    //find the office that is hidden
     @Override
 public List<EUfficio> findByHiddenTrue() {
     return em.createQuery("SELECT u FROM EUfficio u WHERE u.isHidden = true", EUfficio.class)

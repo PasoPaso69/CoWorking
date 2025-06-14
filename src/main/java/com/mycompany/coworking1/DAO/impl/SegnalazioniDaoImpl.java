@@ -21,7 +21,7 @@ public class SegnalazioniDaoImpl implements SegnalazioniDao {
     public SegnalazioniDaoImpl(EntityManager em) {
         this.em = em;
     }
-    
+    //get report by db using idoffice
     @Override
     public List<ESegnalazione> getReportbyDb(String idUfficio){
         

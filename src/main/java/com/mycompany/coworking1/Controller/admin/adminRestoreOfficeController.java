@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 39327
  */
+//this servlet allow to the admin to reactivate office if is delete
 @WebServlet("/admin/office/restore")
 public class adminRestoreOfficeController extends BaseController {
     

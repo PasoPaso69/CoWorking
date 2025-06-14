@@ -30,10 +30,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 39327
  */
+
 @WebServlet("/actionOffice")
 public class confirmOfficeAdmiController extends BaseController {
     private Configuration cfg;
-
+//start freemarker
     @Override
     public void init() throws ServletException {
         
@@ -43,14 +44,15 @@ public class confirmOfficeAdmiController extends BaseController {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
-    
+    //this post approved and office
       protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
-        
+        //take the id of office and a action to do 
         String officeId = request.getParameter("id");
         
         String action = request.getParameter("action");
         
+        // if action is "reject" -> the office is deleted or if the action is "approvato" -> the office is approved
         EUfficio office = em.find(EUfficio.class,officeId );
         em.getTransaction().begin();
         switch (action){
@@ -77,7 +79,7 @@ public class confirmOfficeAdmiController extends BaseController {
         
         response.sendRedirect(request.getContextPath() + "/home-admin");
       }
-    
+      //this getmethod call all the reports for office id and show them
        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
@@ -86,13 +88,14 @@ public class confirmOfficeAdmiController extends BaseController {
         String officeId = request.getParameter("id");
         
         EUfficio office = em.find(EUfficio.class, officeId);
-        
+        //create a list of report
        List<ESegnalazione> reports = reportDao.getReportbyDb(officeId);
        
        
        Map<String, Object> data = new HashMap<>();
        
        data.put("office", office);
+       
        data.put("reports", reports);
        
         data.put("ctx", request.getContextPath());
