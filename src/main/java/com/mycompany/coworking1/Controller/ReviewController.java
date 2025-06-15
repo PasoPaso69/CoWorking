@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+
 package com.mycompany.coworking1.Controller;
 
-import com.mycompany.coworking1.DAO.FotoDao;
-import com.mycompany.coworking1.DAO.impl.FotoDaoimpl;
-import com.mycompany.coworking1.Model.entity.EFoto;
+import com.mycompany.coworking1.DAO.RecensioniDao;
+import com.mycompany.coworking1.DAO.impl.RecensioniDaoImpl;
 import com.mycompany.coworking1.Model.entity.EProfilo;
+import com.mycompany.coworking1.Model.entity.ERecensione;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -29,13 +27,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author 39327
  */
-@WebServlet("/home-utente/search/detailsoffice")
-public class DetailsOfficeController extends BaseController {
-     private Configuration cfg;
-     
+@WebServlet("/home-utente/search/showoffice/detailsoffice/review")
+public class ReviewController extends BaseController {
+       private Configuration cfg;
+
     @Override
     public void init() throws ServletException {
-     
+        
+
         cfg = new Configuration(Configuration.VERSION_2_3_31);
         cfg.setServletContextForTemplateLoading(getServletContext(), "/WEB-INF/templates");
         cfg.setDefaultEncoding("UTF-8");
@@ -44,26 +43,15 @@ public class DetailsOfficeController extends BaseController {
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
-           FotoDao fotoDao = new FotoDaoimpl(em);
-           String idufficio = request.getParameter("idufficio");
-           String dateStr = request.getParameter("date");
-           String slot = request.getParameter("slot");
-           
-           
-           EUfficio office = em.find(EUfficio.class,idufficio);
-           
-            List<EFoto> foto = fotoDao.getFotobyDb(office.getId());
-            List<String> photoUrlList = new ArrayList<>();
-            try {
-            for (EFoto u : foto){
-                
-                
-                 String photoUrl = (u != null) ? request.getContextPath()+"/photo?id=" + u.getId()
-                        : null;
-                photoUrlList.add(photoUrl);
-                
-            }
-                HttpSession session = request.getSession(false);
+       String idoffice = request.getParameter("idufficio"); 
+       EUfficio office = em.find(EUfficio.class,idoffice);
+       RecensioniDao reviewDao = new RecensioniDaoImpl(em);
+       
+       List<ERecensione> review = new ArrayList<>();
+       try{
+       review= reviewDao.getReviewbyDb(idoffice);
+       
+         HttpSession session = request.getSession(false);
 
         String isLoggedIn = "notLoggedIn";
         String nome = "";
@@ -80,29 +68,27 @@ public class DetailsOfficeController extends BaseController {
                 data.put("nome", nome);
               data.put("cognome", cognome);
             }
-            }
+            
             data.put("isloggedin",isLoggedIn);
-            data.put("ufficio", office);
-            data.put("foto", photoUrlList);
-            data.put("date",dateStr);
-            data.put("slot",slot);
+            data.put("office", office);
+            data.put("reviews", review);
+          
             data.put("ctx", request.getContextPath());
-            Template template = cfg.getTemplate("office/DetailsOffice.ftl");
+            Template template = cfg.getTemplate("Review/ShowReview.ftl");
+              response.setContentType("text/html;charset=UTF-8");
 
-        // Imposta la risposta
-        response.setContentType("text/html;charset=UTF-8");
-         
         try (Writer out = response.getWriter()) {
                 template.process(data, out);
             } catch (Exception e) {
                 throw new ServletException("Errore nel template", e);
             }
-
+         }else{response.sendRedirect(request.getContextPath() + "/login");}
             }catch (Exception e) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore: " + e.getMessage());
-    } finally {
-        em.close();
+    } 
+
     }
-       
+    
+    
 }
-}
+

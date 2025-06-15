@@ -1,3 +1,4 @@
+
 /* RESET */
 * {
     margin: 0;
@@ -32,16 +33,12 @@ body {
     color: #e74c3c;
 }
 
-.navbar-nav .nav-link i {
-    margin-right: 6px;
-}
-
 /* CONTENITORE DETTAGLI */
 .dettagli-container {
-    
-   
-  
-    max-width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 800px;
     margin: 60px auto;
     padding: 20px;
     background: #fff;
@@ -82,7 +79,6 @@ body {
     gap: 15px;
 }
 
-
 .info-ufficio h1 {
     font-size: 2rem;
     color: #222;
@@ -93,36 +89,10 @@ body {
     color: #444;
 }
 
-.info-ufficio .prezzo {
-    font-size: 1.5rem;
-    color: #e74c3c;
-    font-weight: bold;
-    text-align: end;
+.text-primary {
+    color: #007bff;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    border: none;
-    transition: background 0.3s ease;
-}
-
-.btn:hover {
-    background: linear-gradient(135deg, #ff6f61, #e74c3c);
-}
-
-/* FOOTER (caricato dinamicamente) */
-.site-footer {
-    background-color: #000;
-    color: #fff;
-    padding: 60px 20px 40px;
-    font-size: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.text-success {
+    color: #28a745;
 }

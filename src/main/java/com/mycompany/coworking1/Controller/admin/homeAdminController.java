@@ -1,0 +1,83 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.coworking1.Controller.admin;
+
+import com.mycompany.coworking1.Controller.BaseController;
+import com.mycompany.coworking1.DAO.adminDao;
+import com.mycompany.coworking1.DAO.impl.adminDaoImpl;
+import com.mycompany.coworking1.Model.entity.EUfficio;
+import static com.mycompany.coworking1.Model.enums.StatoUfficioEnum.Approvato;
+import static com.mycompany.coworking1.Model.enums.StatoUfficioEnum.NonApprovato;
+import static com.mycompany.coworking1.Model.enums.StatoUfficioEnum.InAttesa;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+import jakarta.persistence.EntityManager;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author 39327
+ */
+@WebServlet("/home-admin")
+public class homeAdminController extends BaseController {
+     private Configuration cfg;
+
+    @Override
+    public void init() throws ServletException {
+      
+        cfg = new Configuration(Configuration.VERSION_2_3_31);
+        cfg.setServletContextForTemplateLoading(getServletContext(), "/WEB-INF/templates");
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+    }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     EntityManager em = (EntityManager) req.getAttribute("em");
+     resp.setContentType("text/html;charset=UTF-8");
+     adminDao adminDao = new adminDaoImpl(em);
+      try{
+     
+      List<EUfficio> approvedOffice = adminDao.findByStato(Approvato);
+       List<EUfficio> rejectedOffice = adminDao.findByStato(NonApprovato);
+        List<EUfficio> pendingOffice = adminDao.findByStato(InAttesa);
+        
+         Map<String, Object> data = new HashMap<>();
+         
+         data.put("approvedoffice", approvedOffice);
+         data.put("rejectedOffice", rejectedOffice);
+         data.put("pendingOffice", pendingOffice);
+         data.put("ctx", req.getContextPath());
+         
+         
+         
+         Template template = cfg.getTemplate("admin/homeadmin.ftl");
+
+        // Imposta la risposta
+        resp.setContentType("text/html;charset=UTF-8");
+
+        try (Writer out = resp.getWriter()) {
+                template.process(data, out);
+            } catch (Exception e) {
+                throw new ServletException("Errore nel template", e);
+            }
+
+    } catch (Exception e) {
+        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+         
+      
+    }
+    
+}

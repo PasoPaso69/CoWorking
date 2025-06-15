@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author 39327
  */
 public abstract class BaseController extends HttpServlet {
-    protected EntityManager em;
-
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        em = EntityManagerUtil.getEntityManager();
+        EntityManager em = EntityManagerUtil.getEntityManager();
         try {
+            // Passa EntityManager alla richiesta come attributo
+            req.setAttribute("em", em);
             super.service(req, resp);
         } finally {
             if (em != null && em.isOpen()) {

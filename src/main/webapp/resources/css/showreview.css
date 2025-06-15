@@ -1,0 +1,34 @@
+html,body{
+    background-color: #222 !important;
+    height:100%;
+     margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.main-content {
+    flex: 1;
+  }
+.star-rating {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating .fa-star.checked {
+    color: #f39c12;
+}
+
+.form-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.site-footer {
+    background-color: #000;
+    color: white;
+    padding-bottom: 0;
+    text-align: center;
+  }

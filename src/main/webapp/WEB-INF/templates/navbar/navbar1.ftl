@@ -16,7 +16,7 @@
 
                 <li class="nav-item"><a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="/showreservation"><i class="fas fa-bookmark"></i> Prenotazioni</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/home-utente/search/showoffice/detailsoffice/confirm"><i class="fas fa-bookmark"></i> Prenotazioni</a></li>
 
             </ul>
         </div>
