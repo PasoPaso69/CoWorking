@@ -4,12 +4,7 @@
  */
 package com.mycompany.coworking1.Model.enums;
 
-/**
- *
- * @author 39327
- */
 public enum FasciaOrariaEnum {
-   
     MATTINA("Mattina"),
     POMERIGGIO("Pomeriggio");
 
@@ -23,8 +18,13 @@ public enum FasciaOrariaEnum {
         return label;
     }
 
-    @Override
-    public String toString() {
-        return label;
+    public static FasciaOrariaEnum fromLabel(String label) {
+        for (FasciaOrariaEnum fascia : values()) {
+            if (fascia.label.equalsIgnoreCase(label)) {
+                return fascia;
+            }
+        }
+        throw new IllegalArgumentException("Fascia oraria non valida: " + label);
     }
 }
+

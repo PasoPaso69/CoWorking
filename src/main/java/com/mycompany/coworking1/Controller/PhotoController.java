@@ -27,6 +27,7 @@ public class PhotoController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String id = request.getParameter("id");
         if (id == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID mancante");
@@ -35,6 +36,10 @@ public class PhotoController extends BaseController {
 
         EntityManager em = EntityManagerUtil.getEntityManager();
         EFoto foto = em.find(EFoto.class, id);
+        System.out.println("Foto caricata, dimensione byte: " + (foto.getContent() != null ? foto.getContent().length : "null"));
+System.out.println("MimeType: " + foto.getMimeType());
+System.out.println("Size dichiarata: " + foto.getSize());
+
 
         if (foto == null || foto.getContent() == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Foto non trovata");

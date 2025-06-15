@@ -16,6 +16,8 @@ public interface UfficioDao {
     
     public List<EUfficio> findByThree(String queryString, LocalDate data, String fascia);
     
-    public List<EUfficio> getUfficiByLocatoreId(Long idLocatore);
+    public List<EUfficio> getUfficiByLocatoreId(String idLocatore);
+    
+    public Long countByOffice(EUfficio ufficio);
     
 }

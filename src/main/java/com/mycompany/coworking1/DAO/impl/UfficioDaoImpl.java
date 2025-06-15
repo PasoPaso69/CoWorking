@@ -15,7 +15,7 @@ import java.util.List;
  * @author 39327
  */
 public class UfficioDaoImpl  implements UfficioDao{
-   private final EntityManager em;
+    private EntityManager em;
 
     public UfficioDaoImpl(EntityManager em) {
         this.em = em;
@@ -47,11 +47,21 @@ public class UfficioDaoImpl  implements UfficioDao{
                  .getResultList();
     }
     
-     public List<EUfficio> getUfficiByLocatoreId(Long idLocatore) {
-        return em.createQuery("SELECT u FROM EUfficio u WHERE u.locatore.id = :id", EUfficio.class)
-                 .setParameter("id", idLocatore)
-                 .getResultList();
-    }
+   @Override
+    public List<EUfficio> getUfficiByLocatoreId(String idLocatore) {
+    return em.createQuery(
+        "SELECT u FROM EUfficio u WHERE u.locatore.id = :id AND u.isHidden = false", EUfficio.class)
+        .setParameter("id", idLocatore)
+        .getResultList();
+}
+    @Override
+    public Long countByOffice(EUfficio ufficio) {
+    String jpql = "SELECT COUNT(p.id) FROM EPrenotazione p WHERE p.ufficio = :ufficio";
+    return em.createQuery(jpql, Long.class)
+             .setParameter("ufficio", ufficio)
+             .getSingleResult();
+}
+
 
     
 }

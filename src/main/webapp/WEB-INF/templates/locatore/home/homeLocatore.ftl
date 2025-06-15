@@ -7,7 +7,7 @@
   <!-- Tabler CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css" rel="stylesheet">
   <!-- CSS Personalizzato -->
-  <link href="/CoWirking1-UFFICI/resources/css/locatore/homeLocatore.css" rel="stylesheet">
+  <link href="${ctx}/resources/css/locatore/homeLocatore.css" rel="stylesheet">
 
 
   <!-- FontAwesome for icons -->
@@ -36,10 +36,10 @@
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow rounded-3 mt-2">
-          <li><a class="dropdown-item d-flex align-items-center" href="/profilo"><i class="fas fa-user me-2 text-primary"></i> Profilo</a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="${ctx}/profilo"><i class="fas fa-user me-2 text-primary"></i> Profilo</a></li>
           <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="fas fa-cog me-2 text-secondary"></i> Impostazioni</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item d-flex align-items-center text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+          <li><a class="dropdown-item d-flex align-items-center text-danger" href="${ctx}/logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
         </ul>
       </div>
     </header>
@@ -64,8 +64,10 @@
             Monitora l'andamento delle entrate generate dai tuoi uffici nel tempo per avere una visione chiara della tua crescita economica.
           </p>
           <div class="text-center">
-            <img src="/images/fake-chart1.png" alt="Entrate Mensili" style="max-width:600px; width:100%; height:auto; margin:auto;">
-          </div>
+           <div style="max-width: 600px; height: 400px; margin: auto;">
+               <canvas id="graficoEntrate" style="width: 100%; height: 100%;"></canvas>
+            </div>
+         </div>
         </div>
       </div>
 
@@ -76,24 +78,15 @@
           <p class="text-center text-muted fs-5 mb-4">
             Visualizza quanto frequentemente vengono prenotati i tuoi uffici, per ottimizzare la gestione degli spazi disponibili.
           </p>
-          <div class="text-center">
-            <img src="/images/fake-chart2.png" alt="Utilizzo Uffici" style="max-width:500px; width:100%; height:auto; margin:auto;">
+          <div class="d-flex justify-content-center">
+            <div style="max-width: 500px; width: 100%;">
+            <canvas id="graficoUtilizzo"></canvas>
+          </div>
           </div>
         </div>
       </div>
 
-      <!-- Recensioni -->
-      <div class="card mb-5 shadow border-0 rounded-4 bg-light-subtle">
-        <div class="card-body p-5">
-          <h2 class="text-center fw-bold mb-3 text-warning">🌟 Recensioni e Feedback</h2>
-          <p class="text-center text-muted fs-5 mb-4">
-            Tieni traccia della soddisfazione dei tuoi utenti tramite le recensioni ricevute, così da offrire sempre un servizio migliore.
-          </p>
-          <div class="text-center">
-            <img src="images/images.jpg" class="img-fluid rounded" alt="Grafico Recensioni">
-          </div>
-        </div>
-      </div>
+      
 
     </div>
 
@@ -101,6 +94,9 @@
 
   <!-- Tabler JS -->
   <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="${ctx}/resources/js/grafico_entrate.js"></script>
+  <script src="${ctx}/resources/js/grafico_uffici.js"></script>
 
 </body>
 </html>

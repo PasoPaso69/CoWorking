@@ -100,16 +100,16 @@
             </button>
             <span id="conteggio-foto" class="ms-2 text-muted">0 / 3 immagini caricate</span>
           </div>
-          <input type="file" id="foto" name="foto[]" accept="image/*" multiple hidden>
+          <input type="file" id="foto" name="foto" accept="image/*" multiple hidden>
           <div id="anteprima-foto" class="image-preview-container mt-3"></div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Servizi disponibili</label>
-          <div class="form-check"><input class="form-check-input" type="checkbox" id="wifi" name="servizi[]" value="Wi-Fi"> <label class="form-check-label" for="wifi">Wi-Fi</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" id="aria-condizionata" name="servizi[]" value="Aria condizionata"> <label class="form-check-label" for="aria-condizionata">Aria condizionata</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" id="parcheggio" name="servizi[]" value="Parcheggio"> <label class="form-check-label" for="parcheggio">Parcheggio</label></div>
-          <div class="form-check"><input class="form-check-input" type="checkbox" id="stampante" name="servizi[]" value="Stampante"> <label class="form-check-label" for="stampante">Stampante</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="wifi" name="servizi" value="Wi-Fi"> <label class="form-check-label" for="wifi">Wi-Fi</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="aria-condizionata" name="servizi" value="Aria condizionata"> <label class="form-check-label" for="aria-condizionata">Aria condizionata</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="parcheggio" name="servizi" value="Parcheggio"> <label class="form-check-label" for="parcheggio">Parcheggio</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="stampante" name="servizi" value="Stampante"> <label class="form-check-label" for="stampante">Stampante</label></div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="altro-servizio" />
             <label class="form-check-label" for="altro-servizio">Altro</label>

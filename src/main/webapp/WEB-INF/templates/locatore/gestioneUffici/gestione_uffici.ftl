@@ -28,31 +28,49 @@
       <#list uffici as ufficio>
         <div class="col-md-6 col-lg-4">
           <div class="card">
-            <img src="${ufficio.foto}" class="card-img-top" alt="Ufficio">
+
+             <!-- Foto Ufficio (prima foto se esiste) -->
+            <#if ufficio.foto?has_content>
+              <img 
+                src="${ctx}/photo?id=${ufficio.foto?first.id}" 
+                alt="Foto di ${ufficio.titolo}" 
+                class="card-img-top"
+                style="object-fit: cover; height: 200px; width: 100%;"
+              />
+            <#else>
+              <img 
+                src="/CoWirking1-UFFICI/resources/img/default-office.jpg" 
+                alt="Immagine predefinita ufficio" 
+                class="card-img-top" 
+                style="object-fit: cover; height: 200px; width: 100%;"
+              />
+            </#if>
+           
             <div class="card-body">
-              <h4 class="card-title">${ufficio.ufficio.titolo}</h4>
-              <p class="mb-1"><strong>Prezzo:</strong> ${ufficio.ufficio.prezzo} €</p>
-              <p class="mb-3"><strong>Indirizzo:</strong> ${ufficio.ufficio.indirizzo}</p>
+              <h4 class="card-title">${ufficio.titolo}</h4>
+              <p class="mb-1"><strong>Prezzo:</strong> ${ufficio.prezzo} €</p>
+              <p class="mb-3"><strong>Indirizzo:</strong> ${ufficio.indirizzo}</p>
               <div class="d-flex justify-content-between">
+
                 <button
                   class="btn btn-primary btn-sm btn-dettagli"
                   data-bs-toggle="modal"
                   data-bs-target="#modal-dettagli"
-                  data-titolo="${ufficio.ufficio.titolo}"
-                  data-descrizione="${ufficio.ufficio.descrizione}"
-                  data-prezzo="${ufficio.ufficio.prezzo}"
-                  data-superficie="${ufficio.ufficio.superficie}"
-                  data-fascia="${ufficio.intervallo.fascia.value}"
-                  data-indirizzo="${ufficio.ufficio.indirizzo}"
-                  data-postazioni="${ufficio.ufficio.numeroPostazioni}"
-                  data-servizi="<#list ufficio.servizi as s>${s.nomeServizio}<#if s_has_next>, </#if></#list>">
+                  data-titolo="${ufficio.titolo}"
+                  data-descrizione="${ufficio.descrizione}"
+                  data-prezzo="${ufficio.prezzo}"
+                  data-superficie="${ufficio.superficie}"
+                 
+                  data-indirizzo="${ufficio.indirizzo}"
+                  data-postazioni="${ufficio.numeroPostazioni}"
+                  data-servizi="<#list ufficio.serviziAggiuntivi as s>${s.nomeServizio}<#if s_has_next>, </#if></#list>">
                   <i class="fa fa-eye me-1"></i> Dettagli
                 </button>
 
                 <button class="btn btn-danger btn-sm btn-cancella"
                         data-bs-toggle="modal"
                         data-bs-target="#modal-conferma-cancella"
-                        data-office-id="${ufficio.ufficio.id}">
+                        data-office-id="${ufficio.id}">
                   <i class="fa fa-trash me-1"></i> Cancella
                 </button>
               </div>
@@ -71,41 +89,50 @@
 <#include "/locatore/gestioneUffici/modal_dettagli_ufficio.ftl">
 <#include "/locatore/gestioneUffici/modal_conferma_cancella.ftl">
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <!-- JS per il modale -->
-<script src="/js/gestione_uffici.js"></script>
+<script src="/CoWirking1-UFFICI/resources/js/gestione_uffici.js"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let officeIdToDelete = null;
+ document.addEventListener("DOMContentLoaded", function () {
+  let officeIdToDelete = null;
 
-    document.querySelectorAll('.btn-cancella').forEach(button => {
-      button.addEventListener('click', function () {
-        officeIdToDelete = this.dataset.officeId;
-      });
-    });
-
-    document.getElementById('conferma-cancella-btn').addEventListener('click', function () {
-      console.log('Cliccato il bottone cancella');
-      if (!officeIdToDelete) return;
-
-      fetch(`/offices/${officeIdToDelete}/delete`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'shouldRefund=1'
-      })
-      .then(response => response.text())
-      .then(text => {
-        console.log('Risposta fetch (testo grezzo):', text);
-      })
-      .catch(error => {
-        console.error('Errore fetch:', error);
-      });
+  document.querySelectorAll('.btn-cancella').forEach(button => {
+    button.addEventListener('click', function () {
+      officeIdToDelete = this.dataset.officeId;
+      console.log('Office da cancellare:', officeIdToDelete);
     });
   });
+
+  document.getElementById('conferma-cancella-btn').addEventListener('click', function () {
+    console.log('Cliccato il bottone conferma cancellazione');
+
+    if (!officeIdToDelete) {
+      console.error("Nessun ID ufficio selezionato");
+      return;
+    }
+
+    fetch(`${ctx}/gestione`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ idUfficio: officeIdToDelete })
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        alert("Errore durante la cancellazione");
+      }
+    })
+    .catch(error => {
+      console.error('Errore fetch:', error);
+    });
+  });
+});
+
 </script>
 
 </body>
 </html>
-

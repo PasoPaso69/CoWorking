@@ -14,7 +14,7 @@
           <p><strong>Descrizione:</strong> <span id="modalDescrizione"></span></p>
           <p><strong>Prezzo:</strong> <span id="modalPrezzo"></span> €</p>
           <p><strong>Superficie:</strong> <span id="modalSuperficie"></span> m²</p>
-          <p><strong>Fascia:</strong> <span id="modalFascia"></span></p>
+         
           <p><strong>Indirizzo:</strong> <span id="modalIndirizzo"></span></p>
           <p><strong>Postazioni:</strong> <span id="modalPostazioni"></span></p>
           <p><strong>Servizi:</strong> <span id="modalServizi"></span></p>

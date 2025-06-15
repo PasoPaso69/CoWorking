@@ -82,7 +82,7 @@ public class LoginController extends BaseController {
     resp.sendRedirect(req.getContextPath() + "/home-admin");
 } else if (user instanceof ELocatore) {
     session.setAttribute("userType", "locatore");
-    resp.sendRedirect(req.getContextPath() + "/home-locatore");
+    resp.sendRedirect(req.getContextPath() + "/homeLocatore");
 } else {
     session.setAttribute("userType", "utente");
     resp.sendRedirect(req.getContextPath() + "/home-utente");

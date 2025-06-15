@@ -27,27 +27,27 @@
       <ul class="navbar-nav pt-4">
         <#assign currentPage = currentPage?if_exists?string!"" >
         <li class="nav-item">
-          <a class="nav-link<#if currentPage == 'home'> active</#if>" href="/CoWirking1-UFFICI/homeLocatore">
+          <a class="nav-link<#if currentPage == 'home'> active</#if>" href="${ctx}/homeLocatore">
             <i class="fas fa-home me-2"></i> Home
           </a>
         </li>
         <li class="nav-item">
-          <a href="/profilo" class="nav-link<#if currentPage == 'profilo'> active</#if>">
+          <a href="${ctx}/profilo" class="nav-link<#if currentPage == 'profilo'> active</#if>">
             <i class="fas fa-user me-2"></i> Profilo
           </a>
         </li>
         <li class="nav-item">
-          <a href="/prenotazioni" class="nav-link<#if currentPage == 'prenotazioni'> active</#if>">
+          <a href="${ctx}/prenotazioni" class="nav-link<#if currentPage == 'prenotazioni'> active</#if>">
             <i class="fas fa-calendar-check me-2"></i> Gestione prenotazioni
           </a>
         </li>
         <li class="nav-item">
-          <a href="/uffici" class="nav-link<#if currentPage == 'uffici'> active</#if>">
+          <a href="${ctx}/gestione" class="nav-link<#if currentPage == 'uffici'> active</#if>">
             <i class="fas fa-building me-2"></i> Gestione uffici
           </a>
         </li>
         <li class="nav-item">
-          <a href="/CoWirking1-UFFICI/aggiunta" class="nav-link<#if currentPage == 'aggiunta'> active</#if>">
+          <a href="${ctx}/aggiunta" class="nav-link<#if currentPage == 'aggiunta'> active</#if>">
             <i class="fas fa-plus me-2"></i> Aggiungi ufficio
           </a>
         </li>
