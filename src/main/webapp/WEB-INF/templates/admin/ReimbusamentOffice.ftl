@@ -44,30 +44,45 @@
 
             <hr>
 
-            <!-- SEZIONE SEGNALAZIONI -->
-            <h5>Segnalazioni ricevute</h5>
-            <#if reports?size == 0>
-              <p class="text-muted">Nessuna segnalazione presente.</p>
+            <div class="card shadow">
+          <div class="card-header bg-secondary text-white">
+            <h4 class="card-title mb-0">Rimborsi Effettuati</h4>
+          </div>
+          <div class="card-body">
+            <#if reimbursements?size == 0>
+              <p class="text-muted">Nessun rimborso registrato per questo ufficio.</p>
             <#else>
-              <ul class="list-group">
-                <#list reports as report>
-  <#if report.commento?has_content>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <div>
-        <strong>Commento:</strong> ${report.commento}
-      </div>
-      <form method="post" action="${ctx}/admin/office/reimbursement" style="display: inline;">
-  <input type="hidden" name="idReport" value="${report.id}" />
-  <input type="hidden" name="id" value="${office.id}" />
-  <button type="submit" class="btn btn-sm btn-primary">Rimborsa</button>
-</form>
-
-    </li>
-  </#if>
-</#list>
-
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Utente</th>
+                      <th>Email</th>
+                      <th>Importo</th>
+                      <th>Commento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <#list reimbursements as r>
+                      <tr>
+                        <td>${r.segnalazione.utente.name} ${r.segnalazione.utente.surname}</td>
+                        <td>${r.segnalazione.utente.email}</td>
+                        <td>${r.importo}</td>
+                        <td>
+                          <#if r.segnalazione?? && r.segnalazione.commento?has_content>
+                            ${r.segnalazione.commento}
+                          <#else>
+                            -
+                          </#if>
+                        </td>
+                      </tr>
+                    </#list>
+                  </tbody>
+                </table>
+              </div>
             </#if>
+          </div>
+        </div>
           </div>
         </div>
 
@@ -79,4 +94,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
 </body>
 </html>
+
 

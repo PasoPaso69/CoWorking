@@ -4,8 +4,8 @@
  */
 package com.mycompany.coworking1.DAO.impl;
 
-import com.mycompany.coworking1.DAO.SegnalazioniDao;
-
+import com.mycompany.coworking1.DAO.RimborsoDao;
+import com.mycompany.coworking1.Model.entity.ERimborso;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
 import jakarta.persistence.EntityManager;
 import java.util.List;
@@ -14,25 +14,25 @@ import java.util.List;
  *
  * @author 39327
  */
-public class SegnalazioniDaoImpl implements SegnalazioniDao {
+public class RimborsoDaoImpl implements RimborsoDao{
     
-     private final EntityManager em;
+      private final EntityManager em;
 
-    public SegnalazioniDaoImpl(EntityManager em) {
+    public RimborsoDaoImpl(EntityManager em) {
         this.em = em;
     }
-    //get report by db using idoffice
+    
+    //take the reimbuserment from the db using office id
     @Override
-    public List<ESegnalazione> getReportbyDb(String idUfficio){
+    public List<ERimborso> getReimbursementbyDb(String idUfficio){
         
-        String jpql ="SELECT f FROM ESegnalazione f WHERE f.ufficio.id = :id AND f.solved = false";
+        String jpql ="SELECT f FROM ERimborso f WHERE f.segnalazione.ufficio.id = :id";
         
          
-        List<ESegnalazione> Report =  em.createQuery(jpql, ESegnalazione.class)
+        List<ERimborso> Reimbursement =  em.createQuery(jpql, ERimborso.class)
                 .setParameter("id",idUfficio)
                 .getResultList();
         
-        return Report ;
+        return Reimbursement ;
     }
-    
 }

@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.coworking1.Controller;
+package com.mycompany.coworking1.Controller.User;
 
 /**
  *
  * @author 39327
  */
 
+import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.FotoDao;
 import com.mycompany.coworking1.DAO.PrenotazioneDao;
 import com.mycompany.coworking1.DAO.UfficioDao;
@@ -22,34 +23,32 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import jakarta.persistence.EntityManager;
+
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+
 import com.mycompany.coworking1.Model.entity.EFoto;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
-import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
-import com.mycompany.coworking1.util.EntityManagerUtil;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import jakarta.persistence.Persistence;
+
 import java.io.Writer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
-   @WebServlet("/home-utente/search")
+   @WebServlet("/home-utente/Search")
 public class SearchController extends BaseController {
         private Configuration cfg;
-
+//start freemarker
     @Override
     public void init() throws ServletException {
         
@@ -60,7 +59,7 @@ public class SearchController extends BaseController {
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
 
-    
+    // is the function of research of office with parameter that was passed
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     EntityManager em = (EntityManager) request.getAttribute("em");
@@ -70,7 +69,7 @@ public class SearchController extends BaseController {
 
          
 
-    // Instanzia DAO passando l'EntityManager
+    // IStart Dao with the entity manager in input
     FotoDao fotoDao = new FotoDaoimpl(em);
     UfficioDao ufficioDao = new UfficioDaoImpl(em);
     PrenotazioneDao prenotazioneDao = new PrenotazioneDaoImpl(em);
@@ -84,8 +83,9 @@ public class SearchController extends BaseController {
         List<EUfficio> uffici = ufficioDao.findByThree(query, date, slot);
 
         for (EUfficio u : uffici) {
+            //check if the office is delete(hidden)
             if (u.isHidden()) continue;
-            
+            //check is the office is approved
             if (u.getStato() != StatoUfficioEnum.Approvato) continue;
 
             // Conta prenotazioni attive tramite DAO
@@ -93,17 +93,17 @@ public class SearchController extends BaseController {
           
             if (prenotazioni < u.getNumeroPostazioni()) {
               List<EFoto> foto = fotoDao.getFotobyDb(u.getId());
-String photoUrl = null;
+              String photoUrl = null;
 
-if (foto != null && !foto.isEmpty()) {
-    EFoto photo = foto.get(0);
-    photoUrl = request.getContextPath() + "/photo?id=" + photo.getId();
+            if (foto != null && !foto.isEmpty()) {
+                       EFoto photo = foto.get(0);
+                       photoUrl = request.getContextPath() + "/photo?id=" + photo.getId();
 }
-                Map<String, Object> entry = new HashMap<>();
-                entry.put("ctx", request.getContextPath());
-                entry.put("ufficio", u);
-                entry.put("foto", photoUrl);
-                officeWithPhotoList.add(entry);
+                       Map<String, Object> entry = new HashMap<>();
+                       entry.put("ctx", request.getContextPath());
+                       entry.put("ufficio", u);
+                       entry.put("foto", photoUrl);
+                       officeWithPhotoList.add(entry);
             }
         }
 
@@ -127,23 +127,22 @@ if (foto != null && !foto.isEmpty()) {
         
             }
         }
+         
         data.put("results", officeWithPhotoList);
         data.put("isloggedin", isLoggedIn );
         data.put("slot",slot);
         data.put("date",dateStr);
 
        data.put("ctx", request.getContextPath());
-        // Fai forward alla pagina FreeMarker (o JSP)
-        Template template = cfg.getTemplate("office/searchoffice.ftl");
+        // call the template freemarker
+        Template template = cfg.getTemplate("User/office/searchoffice.ftl");
 
-        // Imposta la risposta
+        // start the answer
         response.setContentType("text/html;charset=UTF-8");
 
         try (Writer out = response.getWriter()) {
                 template.process(data, out);
-            } catch (Exception e) {
-                throw new ServletException("Errore nel template", e);
-            }
+            } 
 
     } catch (Exception e) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore: " + e.getMessage());

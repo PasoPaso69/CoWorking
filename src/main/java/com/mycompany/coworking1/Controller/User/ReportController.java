@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.coworking1.Controller;
+package com.mycompany.coworking1.Controller.User;
 
+import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
 import com.mycompany.coworking1.Model.entity.EUfficio;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author 39327
  */
-@WebServlet("/home-utente/search/showoffice/detailsoffice/Report")
+@WebServlet("/home-utente/search/showoffice/Detailsoffice/Report")
 public class ReportController extends BaseController {
     private Configuration cfg;
      @Override
@@ -40,13 +41,17 @@ public class ReportController extends BaseController {
       @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
-HttpSession session = request.getSession(false);
-String idufficio = request.getParameter("idufficio");
+        HttpSession session = request.getSession(false);
+        
+        String idufficio = request.getParameter("idufficio");
+        
         String isLoggedIn = "notLoggedIn";
+        
         String nome = "";
         String cognome = "";
-         Map<String, Object> data = new HashMap<>();
         
+         Map<String, Object> data = new HashMap<>();
+        //check if the user is logged
          if (session != null) {
             Object userObj = session.getAttribute("user");
             if (userObj != null && userObj instanceof EProfilo) {
@@ -55,7 +60,7 @@ String idufficio = request.getParameter("idufficio");
                 nome = user.getName();
                 cognome = user.getSurname(); 
                 data.put("nome", nome);
-              data.put("cognome", cognome);
+                data.put("cognome", cognome);
             }
             }
             data.put("ctx",request.getContextPath());
@@ -63,9 +68,10 @@ String idufficio = request.getParameter("idufficio");
             data.put("idufficio", idufficio);
             
             data.put("ctx", request.getContextPath());
-            Template template = cfg.getTemplate("Report/Report.ftl");
+            //call the  template
+            Template template = cfg.getTemplate("User/Report/Report.ftl");
 
-        // Imposta la risposta
+       
         response.setContentType("text/html;charset=UTF-8");
 
         try (Writer out = response.getWriter()) {
@@ -129,11 +135,13 @@ String idufficio = request.getParameter("idufficio");
             ESegnalazione report = new ESegnalazione();
             report.setCommento(commento);
             report.setUfficio(ufficio);
+            report.setUtente(user);
+            report.setSolved(false);
 
             em.persist(report);
             em.getTransaction().commit();
           
-Template template = cfg.getTemplate("confirm/confirmReport.ftl");
+Template template = cfg.getTemplate("User/confirm/confirmReport.ftl");
         // Imposta la risposta
         response.setContentType("text/html;charset=UTF-8");
             try (Writer out = response.getWriter()) {

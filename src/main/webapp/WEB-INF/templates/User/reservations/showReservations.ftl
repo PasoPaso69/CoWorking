@@ -28,7 +28,7 @@
             <button class="btn btn-toggle" id="btn-passate">Passate</button>
         </div>
 
-        <!-- Prenotazioni -->
+        <!-- reservation -->
         <div id="lista-prenotazioni">
             <#list  activereservation as reservation >
             <!-- Prenotazione Attiva -->
@@ -44,15 +44,15 @@
             </div>
             </#list>
             <#list oldreservation as reservation1  >
-            <!-- Prenotazione Passata -->
+            <!-- old reservation -->
             <div class="card card-custom mb-4 d-flex flex-row p-3 align-items-center prenotazione passata d-none">
 <img src="${ctx}/photo?id=${reservation1.foto.id}" class="card-img me-3" alt="Ufficio">
                 <div class="flex-grow-1">
                     <h5 class="mb-1 text-danger">${ reservation1.ufficio.titolo }</h5>
                     <p class="mb-2"><Strong>Descrizione : </Strong>${ reservation1.ufficio.descrizione }</p>
-                    <button class="btn btn-outline-secondary" onclick="window.location.href='${ctx}/home-utente/reservation/Review?idreservation=${ reservation1.reservation.id }'">Lascia una recensione</button>
+                    <button class="btn btn-outline-secondary" onclick="window.location.href='${ctx}/home-utente/Reservation/Review?idreservation=${ reservation1.reservation.id }'">Lascia una recensione</button>
                 </div>
-                <button class="btn-visualizza" onclick="window.location.href='${ctx}/home-utente/search/showoffice/detailsreservation?idreservation=${ reservation1.reservation.id }'">Visualizza</button>
+                <button class="btn-visualizza" onclick="window.location.href='${ctx}/home-utente/search/showoffice/Detailsreservation?idreservation=${ reservation1.reservation.id }'">Visualizza</button>
             </div>
 
             </#list>

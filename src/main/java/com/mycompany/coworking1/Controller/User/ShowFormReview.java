@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.coworking1.Controller;
+package com.mycompany.coworking1.Controller.User;
 
+import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.Model.entity.EPrenotazione;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ERecensione;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author 39327
  */
-@WebServlet("/home-utente/reservation/Review")
+@WebServlet("/home-utente/Reservation/Review")
 public class ShowFormReview extends BaseController {
     
 
@@ -35,23 +36,27 @@ public class ShowFormReview extends BaseController {
 
     @Override
     public void init() throws ServletException {
-        
+        //start freemarker
 
         cfg = new Configuration(Configuration.VERSION_2_3_31);
         cfg.setServletContextForTemplateLoading(getServletContext(), "/WEB-INF/templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
+    
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-     EntityManager em = (EntityManager) request.getAttribute("em");
+        //call the entity manager
+        EntityManager em = (EntityManager) request.getAttribute("em");
+        //call the user in session
         HttpSession session = request.getSession(false);
-String idreservation = request.getParameter("idreservation");
+        //take the parameter to find reservation
+        String idreservation = request.getParameter("idreservation");
         String isLoggedIn = "notLoggedIn";
         String nome = "";
         String cognome = "";
-         Map<String, Object> data = new HashMap<>();
-        
+        Map<String, Object> data = new HashMap<>();
+        //check if the user is logged
          if (session != null) {
             Object userObj = session.getAttribute("user");
             if (userObj != null && userObj instanceof EProfilo) {
@@ -68,9 +73,9 @@ String idreservation = request.getParameter("idreservation");
             data.put("idreservation", idreservation);
             
             data.put("ctx", request.getContextPath());
-            Template template = cfg.getTemplate("Review/SendReview.ftl");
+            Template template = cfg.getTemplate("User/Review/SendReview.ftl");
 
-        // Imposta la risposta
+        // call the template
         response.setContentType("text/html;charset=UTF-8");
 
         try (Writer out = response.getWriter()) {
@@ -86,21 +91,21 @@ String idreservation = request.getParameter("idreservation");
      EntityManager em = (EntityManager) request.getAttribute("em");
 
         try {
-            // Recupero parametro id dall'URL o dal form (ad esempio come parametro)
+            //take parameter from the request
             String idreservation = request.getParameter("idreservation");
             String votoString = request.getParameter("voto");
             String commento = request.getParameter("review");
             int voto = Integer.parseInt(votoString);
           
 
-            // Recupero commento dal form
+            // take comment from the form
            
              String isLoggedIn="notIsloggedin";
              String nome=null;
              String cognome=null;
             
                 Map<String, Object> data = new HashMap<>();
-            // Recupero utente dalla sessione
+               // take the user in session and check if is logged
             HttpSession session = request.getSession(false);
          if (session != null) {
             Object userObj = session.getAttribute("user");
@@ -110,17 +115,18 @@ String idreservation = request.getParameter("idreservation");
                 nome = user.getName();
                 cognome = user.getSurname(); 
                 data.put("nome", nome);
-              data.put("cognome", cognome);
-            data.put("isloggedin",isLoggedIn);
-            data.put("ctx", request.getContextPath());
-            EPrenotazione reservation = em.find(EPrenotazione.class, idreservation);
-            String idufficio =reservation.getUfficio().getId();
+                data.put("cognome", cognome);
+                data.put("isloggedin",isLoggedIn);
+                data.put("ctx", request.getContextPath());
+                //find the reservtion
+                EPrenotazione reservation = em.find(EPrenotazione.class, idreservation);
+                
+                String idufficio =reservation.getUfficio().getId();
             
-            
-
+           
             em.getTransaction().begin();
 
-            // Recupero ufficio dal DB
+            // take the office from the db
             EUfficio ufficio = em.find(EUfficio.class, idufficio);
             if (ufficio == null) {
                 em.getTransaction().rollback();
@@ -128,7 +134,7 @@ String idreservation = request.getParameter("idreservation");
                 return;
             }
 
-            // Creo nuova segnalazione
+            // create a review
             ERecensione report = new ERecensione();
             report.setPrenotazione(reservation);
             report.setValutazione(voto);
@@ -136,9 +142,10 @@ String idreservation = request.getParameter("idreservation");
 
             em.persist(report);
             em.getTransaction().commit();
-          
-Template template = cfg.getTemplate("confirm/ConfirmReview.ftl");
-        // Imposta la risposta
+            
+          //call the template
+        Template template = cfg.getTemplate("User/confirm/ConfirmReview.ftl");
+       
         response.setContentType("text/html;charset=UTF-8");
             try (Writer out = response.getWriter()) {
                 template.process(data, out);

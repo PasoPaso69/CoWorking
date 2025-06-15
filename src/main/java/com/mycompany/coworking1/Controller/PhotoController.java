@@ -23,7 +23,7 @@ import java.io.IOException;
 @WebServlet("/photo")
 public class PhotoController extends BaseController {
     
-
+    //this controller is very important because allow me to show photo in servlet
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,7 +34,7 @@ public class PhotoController extends BaseController {
             return;
         }
 
-        EntityManager em = EntityManagerUtil.getEntityManager();
+        EntityManager em = (EntityManager) request.getAttribute("em");
         EFoto foto = em.find(EFoto.class, id);
         System.out.println("Foto caricata, dimensione byte: " + (foto.getContent() != null ? foto.getContent().length : "null"));
 System.out.println("MimeType: " + foto.getMimeType());
@@ -46,15 +46,13 @@ System.out.println("Size dichiarata: " + foto.getSize());
             return;
         }
 
-        response.setContentType(foto.getMimeType()); // es. "image/jpeg"
+        response.setContentType(foto.getMimeType());
         response.setContentLength(foto.getSize());
 
         try (ServletOutputStream out = response.getOutputStream()) {
             out.write(foto.getContent());
             out.flush();
-        } finally {
-            em.close();
-        }
+        } 
     }
 }
 

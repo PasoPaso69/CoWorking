@@ -20,6 +20,8 @@ public class UfficioDaoImpl  implements UfficioDao{
     public UfficioDaoImpl(EntityManager em) {
         this.em = em;
     }
+    
+    //this query found the office on three date query string that can is a place or name of office date and slot(morning or afternoon)
     @Override
     public List<EUfficio> findByThree(String queryString, LocalDate data, String fascia) {
         EntityManager entitymanager = EntityManagerUtil.getEntityManager();

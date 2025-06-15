@@ -38,7 +38,7 @@
             <p>Seleziona la data, il luogo e la fascia oraria preferita e trova l’ambiente perfetto per lavorare in serenità.</p>
         </div>
 
-        <form action="${ctx}/home-utente/search" method="GET" class="row g-3 align-items-end">
+        <form action="${ctx}/home-utente/Search" method="GET" class="row g-3 align-items-end">
             <div class="col-md-4">
                 <label class="form-label">Nome ufficio o Luogo</label>
                 <div class="input-group">

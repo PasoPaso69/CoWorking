@@ -21,6 +21,12 @@
                 <h3 id="form-title" class="mb-4 text-danger text-center">
                     <i class="fas fa-sign-in-alt"></i> Accedi
                 </h3>
+                 
+                 <#if error??>
+                 <div class="alert alert-danger text-center">
+                    ${error}
+                 </div>
+                  </#if>
 
                 <!-- FORM LOGIN -->
                 <form id="login-form" action="${ctx}/login" method="post">

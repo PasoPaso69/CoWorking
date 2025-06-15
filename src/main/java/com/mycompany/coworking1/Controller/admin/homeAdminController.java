@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/home-admin")
 public class homeAdminController extends BaseController {
      private Configuration cfg;
-
+//inizializza freemarker
     @Override
     public void init() throws ServletException {
       
@@ -41,28 +42,37 @@ public class homeAdminController extends BaseController {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
+    //this take the data on db of deleteoffice pending office, rejected office,approved office ,notapporved office
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        HttpSession session = req.getSession(false);
+            //check the login because a user don't can reservate an office if not is logged
+         if (session == null) {
+             resp.sendRedirect(req.getContextPath() + "/login");
+         }
+        //take the entity manager
      EntityManager em = (EntityManager) req.getAttribute("em");
      resp.setContentType("text/html;charset=UTF-8");
      adminDao adminDao = new adminDaoImpl(em);
       try{
-     
+          //query to found office checking the state
+      List<EUfficio> deletedOffice = adminDao.findByHiddenTrue();
       List<EUfficio> approvedOffice = adminDao.findByStato(Approvato);
-       List<EUfficio> rejectedOffice = adminDao.findByStato(NonApprovato);
-        List<EUfficio> pendingOffice = adminDao.findByStato(InAttesa);
-        
+      List<EUfficio> rejectedOffice = adminDao.findByStato(NonApprovato);
+      List<EUfficio> pendingOffice = adminDao.findByStato(InAttesa);
+        // si passano i dati
          Map<String, Object> data = new HashMap<>();
-         
+         data.put("deletedOffice", deletedOffice);
          data.put("approvedoffice", approvedOffice);
          data.put("rejectedOffice", rejectedOffice);
          data.put("pendingOffice", pendingOffice);
          data.put("ctx", req.getContextPath());
          
-         
+         //call the template
          
          Template template = cfg.getTemplate("admin/homeadmin.ftl");
 
-        // Imposta la risposta
+      
         resp.setContentType("text/html;charset=UTF-8");
 
         try (Writer out = resp.getWriter()) {

@@ -28,6 +28,8 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
     public PrenotazioneDaoImpl(EntityManager em) {
         this.em = em;
     }
+    
+    //take the reservation active for a slot date and office
      @Override
     public long getActiveReservationsByOfficeDateSlot(EUfficio office, LocalDate date, String fascia) {
     FasciaOrariaEnum fasciaEnum = FasciaOrariaEnum.valueOf(fascia.toUpperCase());
@@ -47,7 +49,7 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
 
     return count != null ? count : 0L;
 }
-    
+    //take the reservation with a user in unput
     @Override
       public List<EPrenotazione> getReservationbyUser(EProfilo user) {
     return em.createQuery(
@@ -58,6 +60,7 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
         .setParameter("utente", user)
         .getResultList();
 }
+      //take the reservation with office in input
        @Override
       public List<EPrenotazione> getReservationbyoffice(EUfficio office) {
     return em.createQuery(
@@ -65,6 +68,8 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
         "WHERE p.ufficio = :ufficio", EPrenotazione.class)
         .setParameter("ufficio", office)
         .getResultList();
+    
+    //take the reservation in a year for a specific office
 }         
       @Override
          public List<LocalDate> findReservationDatesByOfficeId(String officeId, int year) {

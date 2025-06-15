@@ -41,13 +41,13 @@
 <div class="container py-5 ufficio-container">
 <div class="container py-5 ufficio-container">
     <div class="row g-4">
-        <!-- Card 1 -->
+      
         <#list results as result>
         <div class="col-12">
             <div class="ufficio-card d-flex flex-column flex-md-row mx-auto">
                 <img src="${result.foto}" alt="Foto Ufficio" class="ufficio-img">
                 <div class="ufficio-info">
-                    <a href="${ctx}/home-utente/search/detailsoffice?idufficio=${result.ufficio.id}&date=${date}&slot=${slot}" class="btn-prenota"><i class="fa-solid fa-calendar-check"></i> Prenota</a>
+                    <a href="${ctx}/home-utente/search/Detailsoffice?idufficio=${result.ufficio.id}&date=${date}&slot=${slot}" class="btn-prenota"><i class="fa-solid fa-calendar-check"></i> Prenota</a>
                     <h2>${result.ufficio.titolo}</h2>
                     <p><strong>Indirizzo: </strong>${result.ufficio.indirizzo}</p>
                     <p><strong>Posti disponibili: </strong>${result.ufficio.numeroPostazioni} </p>

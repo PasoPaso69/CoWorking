@@ -7,35 +7,7 @@
     <title>Ufficio ${office.titolo!""} - Dettagli</title>
     <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .office-main-photo {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .services-list {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
-
-        .service-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-danger-icon {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-    </style>
+     <link rel="stylesheet" href="${ctx}/resources/css/approvedOfficeDetails.css" />
 </head>
 
 <body>
@@ -139,6 +111,10 @@
                                         <a href="${ctx}/actionOffice?id=${office.id}" class="btn btn-outline-primary mt-3">
                                         Visualizza segnalazioni
                                         </a>
+                                       <a href="${ctx}/admin/office/reimbursement?id=${office.id}" class="btn btn-outline-success mt-3">
+                                        Visualizza rimborsi
+                                       </a>
+
 
                                     </div>
                                 </div>

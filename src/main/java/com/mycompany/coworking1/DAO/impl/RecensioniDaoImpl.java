@@ -19,7 +19,7 @@ public class RecensioniDaoImpl implements RecensioniDao {
     public RecensioniDaoImpl(EntityManager em) {
         this.em = em;
     }
-    
+    //take all the review from the db
     @Override
     public List<ERecensione> getReviewbyDb(String idUfficio){
         

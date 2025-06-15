@@ -183,7 +183,7 @@
           <div class="prezzo h4 text-danger text-end">
             Prezzo: ${ufficio.prezzo} euro al giorno
           </div>
-          <form action="${ctx}/home-utente/search/showoffice/detailsoffice/confirm" method="post">
+          <form action="${ctx}/home-utente/search/showoffice/Detailsoffice/confirm" method="post">
   <input type="hidden" name="idufficio" value="${ufficio.id}" />
   <input type="hidden" name="date" value="${date}" />
   <input type="hidden" name="slot" value="${slot}" />
@@ -196,13 +196,13 @@
 
         <div class="row mt-3">
           <div class="col-6">
-            <a href="${ctx}/home-utente/search/showoffice/detailsoffice/review?idufficio=${ufficio.id}" class="btn btn-danger w-100"
+            <a href="${ctx}/home-utente/search/showoffice/Detailsoffice/review?idufficio=${ufficio.id}" class="btn btn-danger w-100"
               ><i class="fa-solid fa-star"></i> Recensioni</a
             >
           </div>
           <div class="col-6">
             <a
-              href="${ctx}/home-utente/search/showoffice/detailsoffice/Report?idufficio=${ufficio.id}"
+              href="${ctx}/home-utente/search/showoffice/Detailsoffice/Report?idufficio=${ufficio.id}"
               class="btn btn-danger w-100"
               ><i class="fa-solid fa-flag"></i> Segnala</a
             >

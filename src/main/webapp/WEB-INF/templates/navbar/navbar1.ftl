@@ -14,7 +14,7 @@
             <ul class="navbar-nav ms-auto gap-3">
                 <li class="nav-item"><a class="nav-link" href="${ctx}/login"><i class="fas fa-sign-in-alt"></i> Accedi</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/home-utente"><i class="fas fa-home"></i> Home</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="${ctx}/home-utente/search/showoffice/detailsoffice/confirm"><i class="fas fa-bookmark"></i> Prenotazioni</a></li>
 

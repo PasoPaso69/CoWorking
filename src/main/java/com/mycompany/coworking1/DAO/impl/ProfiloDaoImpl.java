@@ -17,7 +17,7 @@ public class ProfiloDaoImpl implements ProfiloDao {
     public ProfiloDaoImpl(EntityManager em) {
         this.em = em;
     }
-    
+    //find by userna,e
     @Override
     public EProfilo findbyUsername(String email) {
         try {
@@ -30,8 +30,8 @@ public class ProfiloDaoImpl implements ProfiloDao {
         } 
     }
     
+    //this save the profile when there is a registration
     @Override
-    
     public void save(EProfilo user) {
         EntityManager entitymanager = EntityManagerUtil.getEntityManager();
          EntityTransaction transaction = entitymanager.getTransaction();

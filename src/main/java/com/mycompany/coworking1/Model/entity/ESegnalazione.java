@@ -32,9 +32,16 @@ public class ESegnalazione {
 
     @Column(nullable = false)
     private String commento;
+    
+    @Column(name = "is_hidden", nullable = false)
+    private boolean solved = false;
 
     @OneToOne(mappedBy = "segnalazione", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private ERimborso rimborso;
+    
+     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utente_id")
+    private EProfilo utente;
 
     public ESegnalazione() {
         // Costruttore di default richiesto da Hibernate
@@ -67,10 +74,24 @@ public class ESegnalazione {
     public ERimborso getRimborso() {
         return rimborso;
     }
-
+    
+    public ESegnalazione setSolved(Boolean Solved){
+        this.solved=Solved;
+        return this;
+    }
+  
+    
     public ESegnalazione setRimborso(ERimborso rimborso) {
         this.rimborso = rimborso;
         return this;
+    }
+    
+    public ESegnalazione setUtente (EProfilo utente){
+        this.utente = utente;
+        return this;
+    }
+    public EProfilo getUtente(){
+        return utente;
     }
 
     @Override

@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.coworking1.Controller;
+package com.mycompany.coworking1.Controller.User;
 
+import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.PrenotazioneDao;
 import com.mycompany.coworking1.DAO.UfficioDao;
 import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
 import com.mycompany.coworking1.DAO.impl.UfficioDaoImpl;
+import com.mycompany.coworking1.Model.entity.EPagamento;
 import com.mycompany.coworking1.Model.entity.EPrenotazione;
 import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
@@ -37,7 +39,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author 39327
  */
-   @WebServlet("/home-utente/search/showoffice/detailsoffice/confirm")
+   @WebServlet("/home-utente/search/showoffice/Detailsoffice/confirm")
         
 public class ReservationController extends BaseController {
        private Configuration cfg;
@@ -49,8 +51,11 @@ public class ReservationController extends BaseController {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
+     
+     //this function allow to the user to reservate an office
       @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //take the data and entitymanager
         EntityManager em = (EntityManager) request.getAttribute("em");
          UfficioDao ufficioDao = new UfficioDaoImpl(em);
     PrenotazioneDao prenotazioneDao = new PrenotazioneDaoImpl(em);
@@ -60,7 +65,8 @@ public class ReservationController extends BaseController {
 
         try {
             
-           FasciaOrariaEnum slotEnum = FasciaOrariaEnum.valueOf(slot.toUpperCase());
+            FasciaOrariaEnum slotEnum = FasciaOrariaEnum.valueOf(slot.toUpperCase());
+            
              LocalDate date = LocalDate.parse(dateStr);
              LocalDateTime endOfDay = date.atTime(23, 59, 59);
              String isLoggedIn="notIsloggedin";
@@ -70,7 +76,7 @@ public class ReservationController extends BaseController {
                 Map<String, Object> data = new HashMap<>();
             // Recupero utente dalla sessione
             HttpSession session = request.getSession(false);
-            
+            //check the login because a user don't can reservate an office if not is logged
          if (session != null) {
                 Object userObj = session.getAttribute("user");
                 isLoggedIn = "isLoggedIn";
@@ -84,16 +90,20 @@ public class ReservationController extends BaseController {
                 
                em.getTransaction().begin();
          
-          
+         //find the office to start the transaction of creation reservation 
             EUfficio office = em.find(EUfficio.class, idufficio);
-             
+             //take the number of reservation for this office in a date and slot
             long prenotazioni = prenotazioneDao.getActiveReservationsByOfficeDateSlot(office, date, slot);
-               data.put("nome", nome);
+                data.put("nome", nome);
                 data.put("cognome", cognome);
                 data.put("isloggedin",isLoggedIn);
                 data.put("ctx", request.getContextPath());
-             if (prenotazioni >= office.getNumeroPostazioni()){
-                 Template template = cfg.getTemplate("confirm/PlaceNotAvaible.ftl");
+                
+                //check if the office is full
+             if (prenotazioni >= office.getNumeroPostazioni() || office.isHidden()){
+                 
+                 Template template = cfg.getTemplate("User/confirm/PlaceNotAvaible.ftl");
+                 
         // Imposta la risposta
         response.setContentType("text/html;charset=UTF-8");
             try (Writer out = response.getWriter()) {
@@ -103,19 +113,27 @@ public class ReservationController extends BaseController {
             }
              }else{
                  
+                 //create reservation
              
                 EPrenotazione prenotazione = new EPrenotazione();
                 prenotazione.setData(endOfDay);
                 prenotazione.setUfficio(office);
                 prenotazione.setFascia(slotEnum);
                 prenotazione.setUtente(user);
-
-            em.persist(prenotazione);
+                //create payment
+                EPagamento payment = new EPagamento();
+                payment.setImporto(office.getPrezzo());
+                payment.setPrenotazione(prenotazione);
+                
+              em.persist(prenotazione);
+              
+              em.persist(payment);
+              
               em.getTransaction().commit();
             
              
             
-Template template = cfg.getTemplate("confirm/confirmReservation.ftl");
+Template template = cfg.getTemplate("User/confirm/confirmReservation.ftl");
         // Imposta la risposta
         response.setContentType("text/html;charset=UTF-8");
             try (Writer out = response.getWriter()) {
@@ -132,15 +150,18 @@ Template template = cfg.getTemplate("confirm/confirmReservation.ftl");
             throw new ServletException(e);
         }
     }
+    //this getMethod show the reservation for every user that is logged
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
-         String isLoggedIn="notIsloggedin";
+            //inizialized parameters
+             String isLoggedIn="notIsloggedin";
              String nome=null;
              String cognome=null;
             
                 Map<String, Object> data = new HashMap<>();
-            // Recupero utente dalla sessione
+                
+            // take user from the session
             HttpSession session = request.getSession(false);
          if (session != null) {
             Object userObj = session.getAttribute("user");
@@ -156,9 +177,9 @@ Template template = cfg.getTemplate("confirm/confirmReservation.ftl");
             PrenotazioneDao reservationDao = new PrenotazioneDaoImpl(em);
              
            List<EPrenotazione> reservations = new ArrayList<>();
-           
+           //take the reservation for every user so can show this in apposite page
            reservations= reservationDao.getReservationbyUser(user);
-          
+          //the reservation is divided in active and old
             List<Map<String, Object>> active = new ArrayList<>();
             List<Map<String, Object>> old = new ArrayList<>();
 
@@ -167,13 +188,14 @@ Template template = cfg.getTemplate("confirm/confirmReservation.ftl");
      
 
 for (EPrenotazione p : reservations) {
+    
     Map<String, Object> entry = new HashMap<>();
     entry.put("reservation", p);
 
     EUfficio ufficio = p.getUfficio();
     entry.put("ufficio", ufficio);
 
-    // Seleziona la prima foto (se esiste)
+    // use the first foto
     if (ufficio.getFoto() != null && !ufficio.getFoto().isEmpty()) {
         entry.put("foto", ufficio.getFoto().stream()
                                   .sorted(Comparator.comparing(f -> f.getId()))  
@@ -181,7 +203,7 @@ for (EPrenotazione p : reservations) {
     } else {
         entry.put("foto", null);
     }
-
+//take the active and old reservation doing a check on date of today
     if (p.getData().toLocalDate().isBefore(oggi)) {
         old.add(entry);
     } else {
@@ -193,8 +215,8 @@ data.put("activereservation", active);
 data.put("oldreservation", old);
 
            
-          
-Template template = cfg.getTemplate("reservations/showReservations.ftl");
+      //call to template    
+Template template = cfg.getTemplate("User/reservations/showReservations.ftl");
         // Imposta la risposta
         response.setContentType("text/html;charset=UTF-8");
             try (Writer out = response.getWriter()) {
@@ -202,7 +224,7 @@ Template template = cfg.getTemplate("reservations/showReservations.ftl");
             } catch (Exception e) {
                 throw new ServletException("Errore nel template", e);
             }
-
+     //if the user don't is logged was redirect to the login
         }else{response.sendRedirect(request.getContextPath() + "/login");}
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {

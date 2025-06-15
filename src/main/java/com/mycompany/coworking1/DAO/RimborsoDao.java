@@ -4,18 +4,15 @@
  */
 package com.mycompany.coworking1.DAO;
 
-import com.mycompany.coworking1.Model.entity.EUfficio;
-import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
+import com.mycompany.coworking1.Model.entity.ERimborso;
 import java.util.List;
 
 /**
  *
  * @author 39327
  */
-public interface adminDao {
+public interface RimborsoDao {
     
-     public List<EUfficio> findByStato(StatoUfficioEnum stato);
-     
-     public List<EUfficio> findByHiddenTrue();
-    
+    public List<ERimborso> getReimbursementbyDb(String idUfficio);
+            
 }

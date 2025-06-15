@@ -8,33 +8,7 @@
   <!-- Tabler CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet" />
 
-  <style>
-    .tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 2px solid #ddd;
-    }
-    .tab {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-    }
-    .tab.active {
-      font-weight: bold;
-      border-bottom-color: #206bc4;
-      color: #206bc4;
-    }
-    .section-tab {
-      display: none;
-    }
-    .section-tab.active {
-      display: block;
-    }
-    .office-card {
-      cursor: pointer;
-    }
-  </style>
+   <link rel="stylesheet" href="${ctx}/resources/css/homeadmin.css" />
 </head>
 
 <body>
@@ -55,6 +29,9 @@
         </div>
         <div class="tab" data-target="rifiutati" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-rifiutati" id="tab-btn-rifiutati">
           Rifiutati <span class="badge bg-white">${rejectedOffice?size}</span>
+        </div>
+        <div class="tab" data-target="cancellati" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-cancellati" id="tab-btn-cancellati">
+        Cancellati <span class="badge bg-white">${deletedOffice?size}</span>
         </div>
       </nav>
 
@@ -119,6 +96,32 @@
   </div>
 </#list>
       </section>
+<section id="cancellati" class="section-tab" role="tabpanel" aria-labelledby="tab-btn-cancellati">
+  <#list deletedOffice as office>
+    <div class="card mb-3 office-card">
+      <div class="card-body d-flex align-items-start">
+        <#if office.foto?has_content>
+          <img src="${ctx}/photo?id=${ office.foto[0].id }" alt="Foto ${ office.titolo }" style="max-width: 100px; margin-right: 1rem;" />
+        </#if>
+        <div>
+          <h5 class="mb-1">
+            <a href="${ctx}/admin/office?id=${office.id}">${office.titolo}</a>
+          </h5>
+          <p class="mb-1 text-muted">${office.indirizzo.via} ${office.indirizzo.numeroCivico}, ${office.indirizzo.citta} (${office.indirizzo.provincia})</p>
+          <small class="text-muted d-block mb-2">Cancellato il: ${office.dataCancellazione}</small>
+
+<form action="${ctx}/admin/office/restore" method="post" style="display:inline;">
+  <input type="hidden" name="id" value="${office.id}" />
+  <button type="submit" class="btn btn-sm btn-success">
+    Riattiva
+  </button>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </#list>
+</section>
 
     </div>
   </div>

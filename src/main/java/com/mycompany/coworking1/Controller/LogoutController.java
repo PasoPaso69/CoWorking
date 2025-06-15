@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class LogoutController extends BaseController{
     
 
-
+//this do the logout and make invalidate the function
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Prende la sessione se esiste, ma non ne crea una nuova

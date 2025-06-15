@@ -30,6 +30,8 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     @PersistenceContext
     private EntityManager em;
     
+    //cpunt and create an array of integer where each date correspond to a month
+    
     @Override
     public List<Integer> getMonthReservationCounts(String officeId, int year) {
         List<Integer> counts = new ArrayList<>(Collections.nCopies(12, 0));
@@ -41,6 +43,7 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
         }
         return counts;
     }
+    //calculate the revenue for month and give a list of integer
     @Override
     public List<Integer> getMonthlyRevenue(String officeId, int year, int priceforreservation) {
         List<Integer> counts = getMonthReservationCounts(officeId, year);

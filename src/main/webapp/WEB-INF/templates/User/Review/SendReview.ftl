@@ -21,7 +21,7 @@
 
 <div class="container form-container">
     <h2 class="mb-4 text-dark">Lascia una Recensione</h2>
-    <form action="${ctx}/home-utente/reservation/Review?idreservation=${idreservation }" method="POST">
+    <form action="${ctx}/home-utente/Reservation/Review?idreservation=${idreservation }" method="POST">
 
     <!-- Valutazione -->
     <div class="mb-3">

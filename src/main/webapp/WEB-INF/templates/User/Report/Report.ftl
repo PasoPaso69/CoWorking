@@ -20,7 +20,7 @@
 <div class="container form-container text-dark">
     <h2 class="mb-4 text-center">Segnala questo annuncio</h2>
 
-    <form id="segnalazioneForm" action="${ctx}/home-utente/search/showoffice/detailsoffice/Report?idufficio=${idufficio }" method="POST" novalidate>
+    <form id="segnalazioneForm" action="${ctx}/home-utente/search/showoffice/Detailsoffice/Report?idufficio=${idufficio }" method="POST" novalidate>
         <div class="mb-3 fs-5">
             <label class="form-label">Perché segnali questo annuncio?</label>
 

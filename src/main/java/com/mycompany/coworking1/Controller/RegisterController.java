@@ -40,14 +40,14 @@ public class RegisterController extends BaseController {
 
     @Override
     public void init() throws ServletException {
-       
+       //start freemarker
 
         cfg = new Configuration(Configuration.VERSION_2_3_31);
         cfg.setServletContextForTemplateLoading(getServletContext(), "/WEB-INF/templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
-
+    //when a user want to register  on the site use this function
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EntityManager em = (EntityManager) req.getAttribute("em");
@@ -62,7 +62,7 @@ public class RegisterController extends BaseController {
         LocalDate data1 = LocalDate.parse(datanascita);
         String phone = req.getParameter("phone");
         
-        
+        //create a profile if is a user and a locatore if had partita iva
         EProfilo profilo;
             if(PIva == null || PIva.trim().isEmpty()){     
         EProfilo newUser = new EProfilo();

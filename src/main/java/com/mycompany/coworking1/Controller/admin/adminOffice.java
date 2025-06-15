@@ -8,15 +8,15 @@ import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.PrenotazioneDao;
 import com.mycompany.coworking1.DAO.RecensioniDao;
 import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
-import com.mycompany.coworking1.DAO.impl.ProfiloDaoImpl;
+
 import com.mycompany.coworking1.DAO.impl.RecensioniDaoImpl;
-import com.mycompany.coworking1.Model.entity.EPrenotazione;
+
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
 import com.mycompany.coworking1.Service.PrenotazioneService;
-import com.mycompany.coworking1.Service.ProfiloService;
+
 import com.mycompany.coworking1.Service.impl.PrenotazioneServiceImpl;
-import com.mycompany.coworking1.Service.impl.ProfiloServiceImpl;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -31,7 +31,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.mycompany.coworking1.Model.entity.ERecensione;
+
+import java.time.LocalDateTime;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,9 +41,14 @@ import com.mycompany.coworking1.Model.entity.ERecensione;
  */
 @WebServlet("/admin/office")
 public class adminOffice extends BaseController {
+    //serve a richiamare il configuratore di freekmarker
+    
      private Configuration cfg;
-      private PrenotazioneService ReservationService;
      
+     //call the service of reservation
+      private PrenotazioneService ReservationService;
+      
+      //start freemarker
     @Override
     public void init() throws ServletException {
      
@@ -52,37 +59,50 @@ public class adminOffice extends BaseController {
     }
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //call entity manager from the bse controller
         EntityManager em = (EntityManager) request.getAttribute("em");
+        //call the dao of reservation to use the query on reservation
         PrenotazioneDao reservationDao = new PrenotazioneDaoImpl(em);
+        //take the reservation serivce where there is the operation on reservation
          this.ReservationService = new PrenotazioneServiceImpl(new PrenotazioneDaoImpl(em));
         try{
-         // Recupera l'ID stringa dalla richiesta
+         //take the id office form the request
     String officeId = request.getParameter("id");
     if (officeId == null || officeId.isBlank()) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ufficio mancante o vuoto.");
         return;
     }
+    HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
 
-    // Cerca l'ufficio usando la chiave primaria stringa
+    // search office usgin the office id that was passed
     EUfficio office = em.find(EUfficio.class, officeId);
     if (office == null) {
         response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ufficio non trovato.");
         return;
     }
+    //take the count of reservation for office
     int reservationCount= (reservationDao.getReservationbyoffice(office).size());
-    // Determina lo stato
+    //take the state of office and with this we do a check below
      StatoUfficioEnum status = office.getStato(); 
-     
+    
     String templateName;
+    
      Map<String, Object> data = new HashMap<>();
+     
      data.put("office",office);
+     
      data.put("ctx", request.getContextPath());
+     //is important to understand for what type of office show details
     switch (status.name().toLowerCase()) {
         case "approvato":
             templateName = "admin/approvedOfficeDetails.ftl";
              int year = LocalDate.now().getYear();
              int prezzo = office.getPrezzo();
-             List<Integer> reservation = ReservationService.getMonthReservationCounts(officeId, year);
+             List<Integer> reservation = ReservationService.getMonthReservationCounts(officeId, year);//take the reservation for month
+             //take the monthly revenue 
              List<Integer> revenue = ReservationService.getMonthlyRevenue(officeId, year, prezzo);
              data.put("reservationformonth", reservation);
              data.put("revenueformonth", revenue);
@@ -100,7 +120,7 @@ public class adminOffice extends BaseController {
     }
     
     Template template = cfg.getTemplate(templateName);
-    // Imposta e mostra il template
+    // call the template
      try (Writer out = response.getWriter()) {
                 template.process(data, out);
             } catch (Exception e) {
@@ -116,16 +136,28 @@ public class adminOffice extends BaseController {
         
     }
      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     //this post removed office when admin click "rimuovi" in approvedOfficeDetails.ftl
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
         
-         EntityManager em = (EntityManager) req.getAttribute("em");
-         String officeId = req.getParameter("id");
+         EntityManager em = (EntityManager) request.getAttribute("em");
+         String officeId = request.getParameter("id");
          PrenotazioneDao reservationDao = new PrenotazioneDaoImpl(em);
          RecensioniDao reviewDao = new RecensioniDaoImpl(em);
          EUfficio office= em.find(EUfficio.class, officeId);
-         List<EPrenotazione> prenotazioni = reservationDao.getReservationbyoffice(office);
-         List<ERecensione>review = reviewDao.getReviewbyDb(officeId);
+         
+         //inizialmente avevamo messo che l'ufficio veniva cancellato ma in realtà è meglio semplicemente renderlo nascosto 
+         //e riattivarlo solo quando vuole l'admin
+         /*
+        List<EPrenotazione> prenotazioni = reservationDao.getReservationbyoffice(office);
+        List<ERecensione>review = reviewDao.getReviewbyDb(officeId);
+         */
          em.getTransaction().begin();
+         
+         /*
          for (ERecensione r : review){
              em.remove(r);
          }
@@ -135,14 +167,15 @@ public class adminOffice extends BaseController {
       }    
          em.remove(office);
          
-        /*
-         office.setHidden("1");
-         */
+        */
+         office.setHidden(true);
+         office.setDataCancellazione(LocalDateTime.now());
+        
          
          
          
          em.getTransaction().commit();
-         resp.sendRedirect(req.getContextPath() + "/home-admin");
+         response.sendRedirect(request.getContextPath() + "/home-admin");
         
     }
     
