@@ -44,6 +44,7 @@ public class homeAdminController extends BaseController {
     }
     //this take the data on db of deleteoffice pending office, rejected office,approved office ,notapporved office
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
         HttpSession session = req.getSession(false);
             //check the login because a user don't can reservate an office if not is logged
          if (session == null) {

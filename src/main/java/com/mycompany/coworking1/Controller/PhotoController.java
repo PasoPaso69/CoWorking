@@ -47,9 +47,7 @@ public class PhotoController extends BaseController {
         try (ServletOutputStream out = response.getOutputStream()) {
             out.write(foto.getContent());
             out.flush();
-        } finally {
-            em.close();
-        }
+        } 
     }
 }
 

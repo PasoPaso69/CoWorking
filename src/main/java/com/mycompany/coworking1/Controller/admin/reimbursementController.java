@@ -25,6 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,13 +48,17 @@ public class reimbursementController extends BaseController {
     }
    // with this post yhe admin can create a reimbursement to answer a report
     
-     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+           HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
         
-        EntityManager em = (EntityManager) req.getAttribute("em");
+        EntityManager em = (EntityManager) request.getAttribute("em");
         
-       String idReport = req.getParameter("idReport");
+       String idReport = request.getParameter("idReport");
        
-       String idoffice = req.getParameter("id");
+       String idoffice = request.getParameter("id");
         
         ESegnalazione Report =em.find(ESegnalazione.class , idReport);
         
@@ -75,10 +80,14 @@ public class reimbursementController extends BaseController {
         
         em.getTransaction().commit();
         
-        resp.sendRedirect(req.getContextPath() + "/home-admin");
+        response.sendRedirect(request.getContextPath() + "/home-admin");
     }
      //permette di mostrare tutti i template
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+           HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
         RimborsoDao  reimbursementDao = new RimborsoDaoImpl(em);

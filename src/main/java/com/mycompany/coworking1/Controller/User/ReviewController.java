@@ -42,7 +42,7 @@ public class ReviewController extends BaseController {
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
     
-    //this get take the review for office using the idoffice that was in the request
+    //this getMethod, take the review for office using the idoffice that was in the request
      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
@@ -73,7 +73,7 @@ public class ReviewController extends BaseController {
                 cognome = user.getSurname(); 
                 data.put("nome", nome);
                 data.put("cognome", cognome);
-            }
+            }}
             //pass the data to the template
             data.put("isloggedin",isLoggedIn);
             data.put("office", office);
@@ -89,7 +89,7 @@ public class ReviewController extends BaseController {
             } catch (Exception e) {
                 throw new ServletException("Errore nel template", e);
             }
-         }else{response.sendRedirect(request.getContextPath() + "/login");}
+         
             }catch (Exception e) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore: " + e.getMessage());
     } 

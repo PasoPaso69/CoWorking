@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,11 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 public class adminRestoreOfficeController extends BaseController {
     
      
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
         
-        EntityManager em = (EntityManager) req.getAttribute("em");
+        EntityManager em = (EntityManager) request.getAttribute("em");
         
-       String idOffice = req.getParameter("id");
+        String idOffice = request.getParameter("id");
         
         EUfficio office =em.find(EUfficio.class , idOffice);
         
@@ -38,6 +43,6 @@ public class adminRestoreOfficeController extends BaseController {
         
         em.getTransaction().commit();
         
-        resp.sendRedirect(req.getContextPath() + "/home-admin");
+        response.sendRedirect(request.getContextPath() + "/home-admin");
     }
 }

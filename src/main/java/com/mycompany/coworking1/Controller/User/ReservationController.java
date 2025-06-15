@@ -150,7 +150,7 @@ Template template = cfg.getTemplate("User/confirm/confirmReservation.ftl");
             throw new ServletException(e);
         }
     }
-    //this get show the reservation for every user that is logged
+    //this getMethod show the reservation for every user that is logged
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{

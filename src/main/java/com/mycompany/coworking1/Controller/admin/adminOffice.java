@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.time.LocalDateTime;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,6 +72,10 @@ public class adminOffice extends BaseController {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ufficio mancante o vuoto.");
         return;
     }
+    HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
 
     // search office usgin the office id that was passed
     EUfficio office = em.find(EUfficio.class, officeId);
@@ -132,10 +137,14 @@ public class adminOffice extends BaseController {
     }
      @Override
      //this post removed office when admin click "rimuovi" in approvedOfficeDetails.ftl
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          HttpSession session = request.getSession(false);
+    if (session == null) {
+             response.sendRedirect(request.getContextPath() + "/login");
+         }
         
-         EntityManager em = (EntityManager) req.getAttribute("em");
-         String officeId = req.getParameter("id");
+         EntityManager em = (EntityManager) request.getAttribute("em");
+         String officeId = request.getParameter("id");
          PrenotazioneDao reservationDao = new PrenotazioneDaoImpl(em);
          RecensioniDao reviewDao = new RecensioniDaoImpl(em);
          EUfficio office= em.find(EUfficio.class, officeId);
@@ -166,7 +175,7 @@ public class adminOffice extends BaseController {
          
          
          em.getTransaction().commit();
-         resp.sendRedirect(req.getContextPath() + "/home-admin");
+         response.sendRedirect(request.getContextPath() + "/home-admin");
         
     }
     
