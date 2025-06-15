@@ -37,10 +37,10 @@
                 <div class="flex-grow-1">
                     <h5 class="mb-1 text-danger">${ reservation.ufficio.titolo }</h5>
                     <p class="mb-2"><Strong>Descrizione : </Strong>${ reservation.ufficio.descrizione }</p>
-                    <button class="btn btn-outline-secondary" onclick="window.location.href='${ctx}/home-utente/reservation/Review?idreservation=${ reservation.reservation.id }'">Lascia una recensione</button>
+                    <button class="btn btn-outline-secondary" onclick="window.location.href='${ctx}/home-utente/Reservation/Review?idreservation=${ reservation.reservation.id }'">Lascia una recensione</button>
 
                 </div>
-                <button class="btn-visualizza" onclick="window.location.href='${ctx}/home-utente/search/showoffice/detailsreservation?idreservation=${ reservation.reservation.id }'">Visualizza</button>
+                <button class="btn-visualizza" onclick="window.location.href='${ctx}/home-utente/search/showoffice/Detailsreservation?idreservation=${ reservation.reservation.id }'">Visualizza</button>
             </div>
             </#list>
             <#list oldreservation as reservation1  >

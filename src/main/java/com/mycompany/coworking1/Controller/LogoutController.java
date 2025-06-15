@@ -29,7 +29,7 @@ public class LogoutController extends BaseController{
         }
 
         // Reindirizza alla home )
-        resp.sendRedirect(req.getContextPath() + "/home-utente");
+        resp.sendRedirect(req.getContextPath() + "/home-User");
     }
 }
     
