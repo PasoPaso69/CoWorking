@@ -7,6 +7,7 @@ package com.mycompany.coworking1.Controller.admin;
 import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.adminDao;
 import com.mycompany.coworking1.DAO.impl.adminDaoImpl;
+import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import static com.mycompany.coworking1.Model.enums.StatoUfficioEnum.Approvato;
 import static com.mycompany.coworking1.Model.enums.StatoUfficioEnum.NonApprovato;
@@ -44,12 +45,17 @@ public class homeAdminController extends BaseController {
     }
     //this take the data on db of deleteoffice pending office, rejected office,approved office ,notapporved office
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        HttpSession session = req.getSession(false);
-            //check the login because a user don't can reservate an office if not is logged
-         if (session == null) {
+        //check the login of admin and if is an admin(check for the root)
+            HttpSession session = req.getSession(false);
+    if (session == null) {
              resp.sendRedirect(req.getContextPath() + "/login");
-         }
+         }else{
+        Object userObj = session.getAttribute("user");
+        EProfilo user = (EProfilo) userObj;
+        if(user.isAdmin()==false){
+           resp.sendRedirect(req.getContextPath() + "/logout"); 
+        }
+    }
         //take the entity manager
      EntityManager em = (EntityManager) req.getAttribute("em");
      resp.setContentType("text/html;charset=UTF-8");

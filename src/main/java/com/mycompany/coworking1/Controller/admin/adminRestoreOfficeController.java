@@ -5,6 +5,7 @@
 package com.mycompany.coworking1.Controller.admin;
 
 import com.mycompany.coworking1.Controller.BaseController;
+import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import jakarta.persistence.EntityManager;
 import java.io.IOException;
@@ -24,10 +25,17 @@ public class adminRestoreOfficeController extends BaseController {
     
      
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-          HttpSession session = request.getSession(false);
+            //check the login of admin and if is an admin(check for the root)
+            HttpSession session = request.getSession(false);
     if (session == null) {
              response.sendRedirect(request.getContextPath() + "/login");
-         }
+         }else{
+        Object userObj = session.getAttribute("user");
+        EProfilo user = (EProfilo) userObj;
+        if(user.isAdmin()==false){
+           response.sendRedirect(request.getContextPath() + "/logout"); 
+        }
+    }
         
         EntityManager em = (EntityManager) request.getAttribute("em");
         

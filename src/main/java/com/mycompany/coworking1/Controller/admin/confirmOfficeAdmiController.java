@@ -7,6 +7,7 @@ package com.mycompany.coworking1.Controller.admin;
 import com.mycompany.coworking1.Controller.BaseController;
 import com.mycompany.coworking1.DAO.SegnalazioniDao;
 import com.mycompany.coworking1.DAO.impl.SegnalazioniDaoImpl;
+import com.mycompany.coworking1.Model.entity.EProfilo;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
@@ -47,10 +48,17 @@ public class confirmOfficeAdmiController extends BaseController {
     }
     //this post approved and office
       protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+              //check the login of admin and if is an admin(check for the root)
             HttpSession session = request.getSession(false);
     if (session == null) {
              response.sendRedirect(request.getContextPath() + "/login");
-         }
+         }else{
+        Object userObj = session.getAttribute("user");
+        EProfilo user = (EProfilo) userObj;
+        if(user.isAdmin()==false){
+           response.sendRedirect(request.getContextPath() + "/logout"); 
+        }
+    }
         EntityManager em = (EntityManager) request.getAttribute("em");
         //take the id of office and a action to do 
         String officeId = request.getParameter("id");
@@ -86,10 +94,17 @@ public class confirmOfficeAdmiController extends BaseController {
       }
       //this getmethod call all the reports for office id and show them
        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-             HttpSession session = request.getSession(false);
+               //check the login of admin and if is an admin(check for the root)
+            HttpSession session = request.getSession(false);
     if (session == null) {
              response.sendRedirect(request.getContextPath() + "/login");
-         }
+         }else{
+        Object userObj = session.getAttribute("user");
+        EProfilo user = (EProfilo) userObj;
+        if(user.isAdmin()==false){
+           response.sendRedirect(request.getContextPath() + "/logout"); 
+        }
+    }
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
         SegnalazioniDao  reportDao = new SegnalazioniDaoImpl(em);

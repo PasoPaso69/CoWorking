@@ -10,6 +10,7 @@ import com.mycompany.coworking1.DAO.RecensioniDao;
 import com.mycompany.coworking1.DAO.impl.PrenotazioneDaoImpl;
 
 import com.mycompany.coworking1.DAO.impl.RecensioniDaoImpl;
+import com.mycompany.coworking1.Model.entity.EProfilo;
 
 import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.Model.enums.StatoUfficioEnum;
@@ -72,10 +73,18 @@ public class adminOffice extends BaseController {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ufficio mancante o vuoto.");
         return;
     }
-    HttpSession session = request.getSession(false);
+    
+      //check the login of admin and if is an admin(check for the root)
+            HttpSession session = request.getSession(false);
     if (session == null) {
              response.sendRedirect(request.getContextPath() + "/login");
-         }
+         }else{
+        Object userObj = session.getAttribute("user");
+        EProfilo user = (EProfilo) userObj;
+        if(user.isAdmin()==false){
+           response.sendRedirect(request.getContextPath() + "/logout"); 
+        }
+    }
 
     // search office usgin the office id that was passed
     EUfficio office = em.find(EUfficio.class, officeId);

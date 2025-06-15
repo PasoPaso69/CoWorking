@@ -165,9 +165,8 @@ Template template = cfg.getTemplate("User/confirm/confirmReservation.ftl");
             HttpSession session = request.getSession(false);
          if (session != null) {
             Object userObj = session.getAttribute("user");
-            
+            EProfilo user = (EProfilo) userObj;
                 isLoggedIn = "isLoggedIn";
-                EProfilo user = (EProfilo) userObj;
                 nome = user.getName();
                 cognome = user.getSurname(); 
                 data.put("nome", nome);
