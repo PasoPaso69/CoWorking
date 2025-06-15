@@ -6,6 +6,7 @@ package com.mycompany.coworking1.DAO.impl;
 
 import com.mycompany.coworking1.DAO.FotoDao;
 import com.mycompany.coworking1.Model.entity.EFoto;
+import com.mycompany.coworking1.Model.entity.EUfficio;
 import com.mycompany.coworking1.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import java.util.List;
@@ -33,6 +34,15 @@ public class FotoDaoimpl  implements FotoDao{
         
         return photo;
         
+    }
+    
+     public EFoto getFirstPhotoByOffice(EUfficio ufficio) {
+        List<EFoto> result = em.createQuery(
+                "SELECT f FROM EFoto f WHERE f.ufficio = :ufficio ORDER BY f.id ASC", EFoto.class)
+                .setParameter("ufficio", ufficio)
+                .setMaxResults(1)
+                .getResultList();
+        return result.isEmpty() ? null : result.get(0);
     }
     
   

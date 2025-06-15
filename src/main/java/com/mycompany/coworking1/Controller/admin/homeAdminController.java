@@ -45,6 +45,7 @@ public class homeAdminController extends BaseController {
     }
     //this take the data on db of deleteoffice pending office, rejected office,approved office ,notapporved office
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         //check the login of admin and if is an admin(check for the root)
             HttpSession session = req.getSession(false);
     if (session == null) {
@@ -56,6 +57,7 @@ public class homeAdminController extends BaseController {
            resp.sendRedirect(req.getContextPath() + "/logout"); 
         }
     }
+
         //take the entity manager
      EntityManager em = (EntityManager) req.getAttribute("em");
      resp.setContentType("text/html;charset=UTF-8");

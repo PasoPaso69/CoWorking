@@ -16,14 +16,13 @@ public class EntityManagerUtil {
     private static final EntityManagerFactory emf = buildEntityManagerFactory();
 
     private static EntityManagerFactory buildEntityManagerFactory() {
-        try {
-            // Crea l'EntityManagerFactory usando il persistence unit definito nel persistence.xml
-            return Persistence.createEntityManagerFactory("CoWirking1PU");
-        } catch (Throwable ex) {
-            System.err.println("Initial EntityManagerFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+    try {
+        return Persistence.createEntityManagerFactory("CoWirking1PU");
+    } catch (Throwable ex) {
+        ex.printStackTrace();  // Stampa completa dell'errore
+        throw new ExceptionInInitializerError(ex);
     }
+}
 
     public static EntityManager getEntityManager() {
         // Restituisce un nuovo EntityManager da usare per le transazioni

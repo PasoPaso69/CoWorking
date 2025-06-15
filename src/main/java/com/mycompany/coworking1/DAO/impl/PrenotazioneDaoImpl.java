@@ -13,6 +13,7 @@ import com.mycompany.coworking1.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,5 +85,39 @@ public class PrenotazioneDaoImpl implements PrenotazioneDao {
                     .map(LocalDateTime::toLocalDate)
                     .collect(Collectors.toList());
 }
+         
+         public List<EPrenotazione> getPrenotazioniByLocatore(String locatoreId) {
+    return em.createQuery(
+            "SELECT p FROM EPrenotazione p JOIN p.ufficio u WHERE u.locatore.id = :locatoreId", EPrenotazione.class)
+        .setParameter("locatoreId", locatoreId)
+        .getResultList();
+}
+         
+         
+        public List<Object[]> getEntrateMensili(String locatoreId) {
+    String jpql = "SELECT YEAR(p.data) AS anno, MONTH(p.data) AS mese, SUM(u.prezzo) AS entrate " +
+                  "FROM EPrenotazione p JOIN p.ufficio u " +
+                  "WHERE u.locatore.id = :locatoreId " +
+                  "GROUP BY anno, mese " +
+                  "ORDER BY anno, mese";
+
+    List<Object[]> rawResults = em.createQuery(jpql, Object[].class)
+        .setParameter("locatoreId", locatoreId)
+        .getResultList();
+
+    List<Object[]> results = new ArrayList<>();
+    for (Object[] row : rawResults) {
+        Integer anno = (Integer) row[0];
+        Integer mese = (Integer) row[1];
+        Number entrate = (Number) row[2];
+        // formatto mese con leading zero
+        String meseStr = String.format("%04d-%02d", anno, mese);
+        results.add(new Object[]{meseStr, entrate});
+    }
+
+    return results;
+}
+
+
 
 }

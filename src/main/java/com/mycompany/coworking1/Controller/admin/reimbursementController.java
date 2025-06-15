@@ -9,7 +9,9 @@ import com.mycompany.coworking1.DAO.RimborsoDao;
 import com.mycompany.coworking1.DAO.SegnalazioniDao;
 import com.mycompany.coworking1.DAO.impl.RimborsoDaoImpl;
 import com.mycompany.coworking1.DAO.impl.SegnalazioniDaoImpl;
+
 import com.mycompany.coworking1.Model.entity.EProfilo;
+
 import com.mycompany.coworking1.Model.entity.ERimborso;
 import com.mycompany.coworking1.Model.entity.ESegnalazione;
 import com.mycompany.coworking1.Model.entity.EUfficio;
@@ -50,6 +52,7 @@ public class reimbursementController extends BaseController {
    // with this post yhe admin can create a reimbursement to answer a report
     
      protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
          //check the login of admin and if is an admin(check for the root)
            HttpSession session = request.getSession(false);
     if (session == null) {
@@ -61,6 +64,7 @@ public class reimbursementController extends BaseController {
            response.sendRedirect(request.getContextPath() + "/logout"); 
         }
     }
+
         
         EntityManager em = (EntityManager) request.getAttribute("em");
         
@@ -92,6 +96,7 @@ public class reimbursementController extends BaseController {
     }
      //permette di mostrare tutti i template
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
          //check the login of admin and if is an admin(check for the root)
         HttpSession session = request.getSession(false);
     if (session == null) {
@@ -103,6 +108,7 @@ public class reimbursementController extends BaseController {
            response.sendRedirect(request.getContextPath() + "/logout"); 
         }
     }        EntityManager em = (EntityManager) request.getAttribute("em");
+
         try{
         RimborsoDao  reimbursementDao = new RimborsoDaoImpl(em);
         

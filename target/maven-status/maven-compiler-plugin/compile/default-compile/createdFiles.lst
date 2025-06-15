@@ -2,6 +2,7 @@ com\mycompany\coworking1\Model\entity\EProfilo.class
 com\mycompany\coworking1\DAO\impl\ProfiloDaoImpl.class
 com\mycompany\coworking1\DAO\impl\PrenotazioneDaoImpl.class
 com\mycompany\coworking1\DAO\UfficioDao.class
+com\mycompany\coworking1\DAO\IntervalloDisponibilitaDao.class
 com\mycompany\coworking1\DAO\RecensioniDao.class
 com\mycompany\coworking1\AppShutdownListener.class
 com\mycompany\coworking1\Service\PrenotazioneService.class
@@ -10,6 +11,9 @@ com\mycompany\coworking1\Controller\admin\confirmOfficeAdmiController.class
 com\mycompany\coworking1\Model\entity\EServiziAggiuntivi.class
 com\mycompany\coworking1\Controller\RegisterController.class
 com\mycompany\coworking1\Controller\User\ReportController.class
+com\mycompany\coworking1\DAO\impl\ServiziAggiuntiviDaoImpl.class
+com\mycompany\coworking1\Controller\homeLocatoreController.class
+com\mycompany\coworking1\DAO\impl\IntervalloDisponibillitaDaoImpl.class
 com\mycompany\coworking1\Service\ProfiloService.class
 com\mycompany\coworking1\Controller\User\homeUserController.class
 com\mycompany\coworking1\Controller\User\ReviewController.class
@@ -32,10 +36,14 @@ com\mycompany\coworking1\Model\entity\EFoto.class
 com\mycompany\coworking1\DAO\impl\UfficioDaoImpl.class
 com\mycompany\coworking1\Model\entity\EIntervalliDisponibilita.class
 com\mycompany\coworking1\Service\impl\ProfiloServiceImpl.class
+com\mycompany\coworking1\Controller\StatsUfficiController.class
+com\mycompany\coworking1\DAO\ServiziAggiuntiviDao.class
+com\mycompany\coworking1\Controller\landlordController.class
 com\mycompany\coworking1\Controller\User\DetailsOfficeController.class
 com\mycompany\coworking1\DAO\impl\SegnalazioniDaoImpl.class
 com\mycompany\coworking1\DAO\PrenotazioneDao.class
 com\mycompany\coworking1\Controller\User\ReservationController.class
+com\mycompany\coworking1\Controller\StatsController.class
 com\mycompany\coworking1\Model\entity\ELocatore.class
 com\mycompany\coworking1\DAO\adminDao.class
 com\mycompany\coworking1\DAO\impl\adminDaoImpl.class
@@ -51,6 +59,7 @@ com\mycompany\coworking1\util\EntityManagerUtil.class
 com\mycompany\coworking1\util\HibernateUtil.class
 com\mycompany\coworking1\Model\entity\EUfficio.class
 com\mycompany\coworking1\Model\entity\ESegnalazione.class
+com\mycompany\coworking1\Controller\OfficeController.class
 com\mycompany\coworking1\Controller\User\ShowReservationController.class
 com\mycompany\coworking1\DAO\ProfiloDao.class
 com\mycompany\coworking1\Controller\admin\reimbursementController.class

@@ -48,6 +48,8 @@ public class confirmOfficeAdmiController extends BaseController {
     }
     //this post approved and office
       protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    //take the entity manager
+     EntityManager em = (EntityManager) request.getAttribute("em");
               //check the login of admin and if is an admin(check for the root)
             HttpSession session = request.getSession(false);
     if (session == null) {
@@ -59,7 +61,7 @@ public class confirmOfficeAdmiController extends BaseController {
            response.sendRedirect(request.getContextPath() + "/logout"); 
         }
     }
-        EntityManager em = (EntityManager) request.getAttribute("em");
+
         //take the id of office and a action to do 
         String officeId = request.getParameter("id");
         
@@ -94,6 +96,7 @@ public class confirmOfficeAdmiController extends BaseController {
       }
       //this getmethod call all the reports for office id and show them
        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
                //check the login of admin and if is an admin(check for the root)
             HttpSession session = request.getSession(false);
     if (session == null) {
@@ -105,6 +108,7 @@ public class confirmOfficeAdmiController extends BaseController {
            response.sendRedirect(request.getContextPath() + "/logout"); 
         }
     }
+
         EntityManager em = (EntityManager) request.getAttribute("em");
         try{
         SegnalazioniDao  reportDao = new SegnalazioniDaoImpl(em);

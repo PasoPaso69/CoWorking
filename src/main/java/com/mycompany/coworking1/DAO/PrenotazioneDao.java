@@ -23,4 +23,8 @@ public interface PrenotazioneDao {
     public List<EPrenotazione> getReservationbyoffice(EUfficio office);
      
     public List<LocalDate> findReservationDatesByOfficeId(String officeId, int year) ;
+    
+    public List<EPrenotazione> getPrenotazioniByLocatore(String locatoreId) ;
+    
+    public List<Object[]> getEntrateMensili(String locatoreId);
 }
